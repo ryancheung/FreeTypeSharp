@@ -16,5 +16,30 @@
     <PackageReference Include="PlatformSharp" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\Dependencies\FreeType2\windows\x64\freetype.dll" Link="nuget\runtimes\win-x64\native\freetype.dll"
+          Condition=" Exists('..\Dependencies\FreeType2\windows\x64\freetype.dll') " />
+    <None Include="..\Dependencies\FreeType2\windows\x64\libpng16.dll" Link="nuget\runtimes\win-x64\native\libpng16.dll"
+          Condition=" Exists('..\Dependencies\FreeType2\windows\x64\libpng16.dll') " />
+    <None Include="..\Dependencies\FreeType2\windows\x86\freetype.dll" Link="nuget\runtimes\win-x86\native\freetype.dll"
+          Condition=" Exists('..\Dependencies\FreeType2\windows\x86\freetype.dll') " />
+    <None Include="..\Dependencies\FreeType2\windows\x86\libpng16.dll" Link="nuget\runtimes\win-x86\native\libpng16.dll"
+          Condition=" Exists('..\Dependencies\FreeType2\windows\x86\libpng16.dll') " />
+
+    <None Include="..\Dependencies\FreeType2\osx\libfreetype.dylib" Link="nuget\runtimes\osx\native\libfreetype.dylib"
+          Condition=" Exists('..\Dependencies\FreeType2\osx\libfreetype.dylib') " />
+    <None Include="..\Dependencies\FreeType2\osx\libpng.dylib" Link="nuget\runtimes\osx\native\libpng.dylib"
+          Condition=" Exists('..\Dependencies\FreeType2\osx\libpng.dylib') " />
+
+    <None Include="..\Dependencies\FreeType2\linux\x64\libfreetype.so" Link="nuget\runtimes\linux-x64\native\libfreetype.so"
+          Condition=" Exists('..\Dependencies\FreeType2\linux\x64\libfreetype.so') " />
+    <None Include="..\Dependencies\FreeType2\linux\x64\libpng.so" Link="nuget\runtimes\linux-x64\native\libpng.so"
+          Condition=" Exists('..\Dependencies\FreeType2\linux\x64\libpng.so') " />
+    <None Include="..\Dependencies\FreeType2\linux\x86\libfreetype.so" Link="nuget\runtimes\linux-x86\native\libfreetype.so"
+          Condition=" Exists('..\Dependencies\FreeType2\linux\x86\libfreetype.so') " />
+    <None Include="..\Dependencies\FreeType2\linux\x86\libpng.so" Link="nuget\runtimes\linux-x86\native\libpng.so"
+          Condition=" Exists('..\Dependencies\FreeType2\linux\x86\libpng.so') " />
+  </ItemGroup>
+
   <Import Project="..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems" Label="Shared" Condition="Exists('..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems')" />
 </Project>
