@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>FreeTypeSharp.Core</id>
+    <version>0.0.0.0</version>
+    <title>FreeTypeSharp.Core</title>
+    <authors>ryancheung</authors>
+    <owners>ryancheung</owners>
+    <license type="file">LICENSE.txt</license>
+    <projectUrl>https://github.com/ryancheung/FreeTypeSharp</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This package provides you with managed FreeType2 on Windows, Linux and MacoS</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2020 ryancheung</copyright>
+    <tags>freetype2 netcoreapp3.1</tags>
+
+    <dependencies>
+      <group targetFramework="netcoreapp3.1">
+        <dependency id="Microsoft.DotNet.PlatformAbstractions" version="3.1.1" />
+        <dependency id="Microsoft.Extensions.DependencyModel" version="3.1.1" />
+        <dependency id="PlatformSharp" version="1.0.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  
+  <files>
+    <file src="..\FreeTypeSharp.Core\bin\Release\netcoreapp3.1\FreeTypeSharp.dll" target="lib/netcoreapp3.1" />
+    <file src="..\FreeTypeSharp.Core\bin\Release\netcoreapp3.1\FreeTypeSharp.deps.json" target="lib/netcoreapp3.1" />
+
+    <file src="..\Dependencies\FreeType2\windows\x64\freetype.dll" target="runtimes\win-x64\native\freetype.dll" />
+    <file src="..\Dependencies\FreeType2\windows\x64\libpng16.dll" target="runtimes\win-x64\native\libpng16.dll" />
+    <file src="..\Dependencies\FreeType2\windows\x86\freetype.dll" target="runtimes\win-x86\native\freetype.dll" />
+    <file src="..\Dependencies\FreeType2\windows\x86\libpng16.dll" target="runtimes\win-x86\native\libpng16.dll" />
+
+    <file src="..\Dependencies\FreeType2\osx\libfreetype.dylib" target="runtimes\osx\native\libfreetype.dylib" />
+    <file src="..\Dependencies\FreeType2\osx\libpng.dylib" target="runtimes\osx\native\libpng.dylib" />
+
+    <file src="..\Dependencies\FreeType2\linux\x64\libfreetype.so" target="runtimes\linux-x64\native\libfreetype.so" />
+    <file src="..\Dependencies\FreeType2\linux\x64\libpng.so" target="runtimes\linux-x64\native\libpng.so" />
+    <file src="..\Dependencies\FreeType2\linux\x86\libfreetype.so" target="runtimes\linux-x86\native\libfreetype.so" />
+    <file src="..\Dependencies\FreeType2\linux\x86\libpng.so" target="runtimes\linux-x86\native\libpng.so" />
+
+    <file src="..\LICENSE.txt" />
+  </files>
+</package>
