@@ -16,8 +16,6 @@
 
     <dependencies>
       <group targetFramework="netcoreapp3.1">
-        <dependency id="Microsoft.DotNet.PlatformAbstractions" version="3.1.1" />
-        <dependency id="Microsoft.Extensions.DependencyModel" version="3.1.1" />
       </group>
     </dependencies>
   </metadata>
