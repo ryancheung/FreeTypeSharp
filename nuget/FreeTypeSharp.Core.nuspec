@@ -24,8 +24,8 @@
   </metadata>
   
   <files>
-    <file src="..\FreeTypeSharp.Core\bin\Release\netcoreapp3.1\FreeTypeSharp.dll" target="lib/netcoreapp3.1" />
-    <file src="..\FreeTypeSharp.Core\bin\Release\netcoreapp3.1\FreeTypeSharp.deps.json" target="lib/netcoreapp3.1" />
+    <file src="..\FreeTypeSharp.Core\bin\Release\netcoreapp3.1\FreeTypeSharp.Core.dll" target="lib/netcoreapp3.1" />
+    <file src="..\FreeTypeSharp.Core\bin\Release\netcoreapp3.1\FreeTypeSharp.Core.deps.json" target="lib/netcoreapp3.1" />
 
     <file src="..\Dependencies\FreeType2\windows\x64\freetype.dll" target="runtimes\win-x64\native\freetype.dll" />
     <file src="..\Dependencies\FreeType2\windows\x64\libpng16.dll" target="runtimes\win-x64\native\libpng16.dll" />
