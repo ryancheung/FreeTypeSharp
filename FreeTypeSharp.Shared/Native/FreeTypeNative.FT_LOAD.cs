@@ -3,7 +3,7 @@
 namespace FreeTypeSharp.Native
 {
 #pragma warning disable 1591
-    static partial class FreeTypeNative
+    public static partial class FreeTypeNative
     {
         public const Int32 FT_LOAD_DEFAULT = 0x0;
         public const Int32 FT_LOAD_NO_SCALE = (1 << 0);

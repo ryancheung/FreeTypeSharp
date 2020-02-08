@@ -7,7 +7,7 @@ namespace FreeTypeSharp
     /// <summary>
     /// Encapsulates the native FreeType2 library object.
     /// </summary>
-    internal sealed unsafe class FreeTypeLibrary : IDisposable
+    public sealed unsafe class FreeTypeLibrary : IDisposable
     {
         private Boolean disposed;
 

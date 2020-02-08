@@ -3,7 +3,7 @@
 namespace FreeTypeSharp.Native
 {
 #pragma warning disable 1591
-    static partial class FreeTypeNative
+    public static partial class FreeTypeNative
     {
         public const Int32 FT_FACE_FLAG_SCALABLE = 1 << 0;
         public const Int32 FT_FACE_FLAG_FIXED_SIZES = 1 << 1;

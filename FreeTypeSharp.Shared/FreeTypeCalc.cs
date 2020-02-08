@@ -5,7 +5,7 @@ namespace FreeTypeSharp
     /// <summary>
     /// Contains utility methods for converting FreeType2 data types to CLR data types, and vice versa.
     /// </summary>
-    internal static class FreeTypeCalc
+    public static class FreeTypeCalc
     {
         /// <summary>
         /// Converts a <see cref="System.Int32"/> value to FreeType2 26.6 fixed point value.

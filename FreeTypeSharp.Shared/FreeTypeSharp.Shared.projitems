@@ -64,7 +64,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT_SubGlyphRec64.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT_Vector32.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT_Vector64.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MonoNativeFunctionWrapperAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contract.cs" />
   </ItemGroup>
   <ItemGroup>

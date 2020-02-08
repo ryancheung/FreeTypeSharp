@@ -9,7 +9,7 @@ namespace FreeTypeSharp.Native
     /// <summary>
     /// Represents an interface-agnostic facade over a FreeType2 face pointer.
     /// </summary>
-    internal unsafe struct FT_FaceRecFacade
+    public unsafe struct FT_FaceRecFacade
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FT_FaceRecFacade"/> structure.
