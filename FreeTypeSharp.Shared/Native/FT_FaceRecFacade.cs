@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Drawing;
 using static FreeTypeSharp.Native.FreeTypeNative;
 using static FreeTypeSharp.Native.FT_Error;
 using static FreeTypeSharp.Native.FT_Kerning_Mode;
@@ -73,52 +72,6 @@ namespace FreeTypeSharp.Native
         /// <returns>The specified character, if it is defined by this face; otherwise, <see langword="null"/>.</returns>
         public Char? GetCharIfDefined(Char c) => (Use64BitInterface ? FT_Get_Char_Index64(face, c) : FT_Get_Char_Index32(face, c)) > 0 ? c : (Char?)null;
 
-        /// <summary>
-        /// Gets the kerning information for the specified glyph pair.
-        /// </summary>
-        /// <param name="ixLeft">The index of the left glyph.</param>
-        /// <param name="ixRight">The index of the right glyph.</param>
-        /// <returns>The kerning information for the specified glyph pair.</returns>
-        public Size GetKerning(UInt32 ixLeft, UInt32 ixRight)
-        {
-            var kx = 0;
-            var ky = 0;
-
-            if (Use64BitInterface)
-            {
-                var kerning = default(FT_Vector64);
-                var err = FT_Get_Kerning(face, ixLeft, ixRight, (UInt32)FT_KERNING_DEFAULT, (IntPtr)(&kerning));
-                if (err != FT_Err_Ok)
-                    throw new FreeTypeException(err);
-
-                kx = (Int32)kerning.x;
-                ky = (Int32)kerning.y;
-            }
-            else
-            {
-                var kerning = default(FT_Vector32);
-                var err = FT_Get_Kerning(face, ixLeft, ixRight, (UInt32)FT_KERNING_DEFAULT, (IntPtr)(&kerning));
-                if (err != FT_Err_Ok)
-                    throw new FreeTypeException(err);
-
-                kx = kerning.x;
-                ky = kerning.y;
-            }
-
-            var x = FreeTypeCalc.F26Dot6ToInt32(kx);
-            var y = FreeTypeCalc.F26Dot6ToInt32(ky);
-            return new Size(x, y);
-        }
-
-        /// <summary>
-        /// Gets the size of the current glyph.
-        /// </summary>
-        /// <returns>The size of the current glyph.</returns>
-        public Size GetGlyphSize()
-        {
-            return new Size(GlyphMetricWidth, GlyphMetricHeight);
-        }
-        
         /// <summary>
         /// Returns the index of the fixed size which is the closest match to the specified pixel size.
         /// </summary>

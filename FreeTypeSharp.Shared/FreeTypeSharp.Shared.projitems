@@ -64,21 +64,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT_SubGlyphRec64.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT_Vector32.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT_Vector64.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\NativeLibs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MonoNativeFunctionWrapperAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\DefaultPathResolver.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\LibraryLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\NativeLibrary.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\PathResolver.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\UnixLibraryLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\UnixLibraryLoaderLibc.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\UnixLibraryLoaderLibdl.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\UnixLibraryLoaderLibdl2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\Win32LibraryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contract.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Native\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Native\LibraryLoader\" />
   </ItemGroup>
 </Project>

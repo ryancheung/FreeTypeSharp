@@ -7,6 +7,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FreeTypeSharp.Shared", "Fre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTypeSharp.Core", "FreeTypeSharp.Core\FreeTypeSharp.Core.csproj", "{F03BDA73-4754-4199-B144-C2588A5912DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTypeSharp.iOS", "FreeTypeSharp.iOS\FreeTypeSharp.iOS.csproj", "{8D016D01-EFC6-4745-BBDE-AD66CCD36690}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,5 +34,17 @@ Global
 		{F03BDA73-4754-4199-B144-C2588A5912DC}.Release|x64.Build.0 = Release|Any CPU
 		{F03BDA73-4754-4199-B144-C2588A5912DC}.Release|x86.ActiveCfg = Release|Any CPU
 		{F03BDA73-4754-4199-B144-C2588A5912DC}.Release|x86.Build.0 = Release|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Debug|x64.Build.0 = Debug|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Debug|x86.Build.0 = Debug|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Release|x64.ActiveCfg = Release|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Release|x64.Build.0 = Release|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Release|x86.ActiveCfg = Release|Any CPU
+		{8D016D01-EFC6-4745-BBDE-AD66CCD36690}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
