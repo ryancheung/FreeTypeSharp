@@ -1,13 +1,27 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using PlatformSharp;
 
 namespace FreeTypeSharp.Native
 {
 #pragma warning disable 1591
     public static unsafe partial class FreeTypeNative
     {
-        public static Boolean Use64BitInterface => PlatformInfo.CurrentPlatform != Platform.Windows && Environment.Is64BitProcess;
+        public static bool IsWindows()
+        {
+#if __IOS__ || ANDROID
+            return false;
+#else
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.MacOSX:
+                case PlatformID.Unix:
+                    return false;
+                default:
+                    return true;
+            }
+#endif
+        }
+        public static Boolean Use64BitInterface => IsWindows() && Environment.Is64BitProcess;
 
 #if ANDROID
         const String LIBRARY = "freetype";
