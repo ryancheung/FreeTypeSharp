@@ -7,7 +7,20 @@ FreeTypeSharp intends to provides cross-platform bindings for:
 - .NET Core 3.1
 - Xamarin.Android
 - Xamarin.iOS
-- Xamarin.Mac
+
+# Installation
+
+### Dotnet Core
+
+`dotnet add package FreeTypeSharp.Core`
+
+### Xamarin.iOS
+
+`dotnet add package FreeTypeSharp.iOS`
+
+### Xamarin.Android
+
+`dotnet add package FreeTypeSharp.Android`
 
 # Credit
 
