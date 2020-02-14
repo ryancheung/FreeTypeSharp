@@ -21,7 +21,7 @@ namespace FreeTypeSharp.Native
             }
 #endif
         }
-        public static Boolean Use64BitInterface => IsWindows() && Environment.Is64BitProcess;
+        public static Boolean Use64BitInterface => !IsWindows() && Environment.Is64BitProcess;
 
 #if ANDROID
         const String LIBRARY = "freetype";
