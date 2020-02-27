@@ -99,6 +99,10 @@ namespace FreeTypeSharp.Native
 
         [DllImport(LIBRARY, EntryPoint="FT_Glyph_To_Bitmap", CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Glyph_To_Bitmap(IntPtr the_glyph, FT_Render_Mode render_mode, IntPtr origin, Boolean destroy);
+        
+        [DllImport(LIBRARY, EntryPoint="FT_Property_Set", CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Property_Set(IntPtr alibrary, string module_name, string property_name, IntPtr value);
+
     }
 #pragma warning restore 1591
 }
