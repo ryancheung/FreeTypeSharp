@@ -56,11 +56,6 @@
     <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\armeabi-v7a\libfreetype.so" Link="libs\armeabi-v7a\libfreetype.so" />
     <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\x86\libfreetype.so" Link="libs\x86\libfreetype.so" />
     <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\x86_64\libfreetype.so" Link="libs\x86_64\libfreetype.so" />
-
-    <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\arm64\libpng16.so" Link="libs\arm64\libpng16.so" ABI="arm64-v8a" />
-    <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\armeabi-v7a\libpng16.so" Link="libs\armeabi-v7a\libpng16.so" />
-    <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\x86\libpng16.so" Link="libs\x86\libpng16.so" />
-    <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\x86_64\libpng16.so" Link="libs\x86_64\libpng16.so" />
   </ItemGroup>
   <Import Project="..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems" Label="Shared" Condition="Exists('..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

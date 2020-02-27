@@ -25,16 +25,11 @@
     <file src="..\FreeTypeSharp.Core\bin\Release\netcoreapp3.1\FreeTypeSharp.Core.deps.json" target="lib/netcoreapp3.1" />
 
     <file src="..\Dependencies\FreeType2\windows\x64\freetype.dll" target="runtimes\win-x64\native\freetype.dll" />
-    <file src="..\Dependencies\FreeType2\windows\x64\libpng16.dll" target="runtimes\win-x64\native\libpng16.dll" />
     <file src="..\Dependencies\FreeType2\windows\x86\freetype.dll" target="runtimes\win-x86\native\freetype.dll" />
-    <file src="..\Dependencies\FreeType2\windows\x86\libpng16.dll" target="runtimes\win-x86\native\libpng16.dll" />
 
     <file src="..\Dependencies\FreeType2\osx\libfreetype.dylib" target="runtimes\osx\native\libfreetype.dylib" />
 
     <file src="..\Dependencies\FreeType2\linux\x64\libfreetype.so" target="runtimes\linux-x64\native\libfreetype.so" />
-    <file src="..\Dependencies\FreeType2\linux\x64\libpng.so" target="runtimes\linux-x64\native\libpng.so" />
-    <file src="..\Dependencies\FreeType2\linux\x86\libfreetype.so" target="runtimes\linux-x86\native\libfreetype.so" />
-    <file src="..\Dependencies\FreeType2\linux\x86\libpng.so" target="runtimes\linux-x86\native\libpng.so" />
 
     <file src="..\LICENSE.txt" />
   </files>
