@@ -67,6 +67,9 @@ namespace FreeTypeSharp.Native
         [DllImport(LIBRARY, EntryPoint="FT_Get_Char_Index", CallingConvention = CallingConvention.Cdecl)]
         public static extern UInt32 FT_Get_Char_Index64(IntPtr face, UInt64 charcode);
 
+        [DllImport(LIBRARY, EntryPoint = "FT_Set_Transform", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FT_Set_Transform(IntPtr face, IntPtr matrix, IntPtr delta);
+
         [DllImport(LIBRARY, EntryPoint="FT_Load_Glyph", CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Load_Glyph(IntPtr face, UInt32 glyph_index, Int32 load_flags);
 
