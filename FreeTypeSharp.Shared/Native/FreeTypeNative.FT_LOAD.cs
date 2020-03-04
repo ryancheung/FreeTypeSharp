@@ -25,6 +25,13 @@ namespace FreeTypeSharp.Native
         public const Int32 FT_LOAD_BITMAP_METRICS_ONLY = (1 << 22);
         public const Int32 FT_LOAD_ADVANCE_ONLY = (1 << 8);
         public const Int32 FT_LOAD_SBITS_ONLY = (1 << 14);
+
+        public const Int32 FT_LOAD_TARGET_NORMAL = (0 & 15) << 16;
+        public const Int32 FT_LOAD_TARGET_LIGHT = (1 & 15) << 16;
+        public const Int32 FT_LOAD_TARGET_MONO = (2 & 15) << 16;
+        public const Int32 FT_LOAD_TARGET_LCD = (3 & 15) << 16;
+        public const Int32 FT_LOAD_TARGET_LCD_V = (4 & 15) << 16;
+
     }
 #pragma warning restore 1591
 }
