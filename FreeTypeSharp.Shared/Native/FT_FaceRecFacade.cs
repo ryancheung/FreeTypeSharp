@@ -15,9 +15,10 @@ namespace FreeTypeSharp.Native
         /// Initializes a new instance of the <see cref="FT_FaceRecFacade"/> structure.
         /// </summary>
         /// <param name="face">A pointer to the wrapped FreeType2 face object.</param>
-        public FT_FaceRecFacade(IntPtr face)
+        public FT_FaceRecFacade(IntPtr face, IntPtr library)
         {
             this.face = face;
+            this.library = library;
         }
 
         /// <summary>
@@ -107,6 +108,57 @@ namespace FreeTypeSharp.Native
             return bestMatchIx;
         }
 
+        public bool EmboldenGlyphBitmap(int xStrength, int yStrength)
+        {
+            ref var glyphBitmap = ref GlyphBitmap;
+
+            fixed (FT_Bitmap* bitmapPtr = &glyphBitmap)
+            {
+                if (Use64BitInterface)
+                {
+                    var err = FT_Bitmap_Embolden64(library, (IntPtr)(bitmapPtr), (long)xStrength, (long)yStrength);
+                    if (err != FT_Err_Ok)
+                        return false;
+
+                    if (((FT_FaceRec64*)face)->glyph->advance.x > 0)
+                        ((FT_FaceRec64*)face)->glyph->advance.x += xStrength;
+                    if (((FT_FaceRec64*)face)->glyph->advance.y > 0)
+                        ((FT_FaceRec64*)face)->glyph->advance.x += yStrength;
+                    ((FT_FaceRec64*)face)->glyph->metrics.width += xStrength;
+                    ((FT_FaceRec64*)face)->glyph->metrics.height += yStrength;
+                    ((FT_FaceRec64*)face)->glyph->metrics.horiBearingY += yStrength;
+                    ((FT_FaceRec64*)face)->glyph->metrics.horiAdvance += xStrength;
+                    ((FT_FaceRec64*)face)->glyph->metrics.vertBearingX -= xStrength / 2;
+                    ((FT_FaceRec64*)face)->glyph->metrics.vertBearingY += yStrength;
+                    ((FT_FaceRec64*)face)->glyph->metrics.vertAdvance += yStrength;
+
+                    ((FT_FaceRec64*)face)->glyph->bitmap_top += (yStrength >> 6);
+                }
+                else
+                {
+                    var err = FT_Bitmap_Embolden32(library, (IntPtr)(bitmapPtr), xStrength, yStrength);
+                    if (err != FT_Err_Ok)
+                        return false;
+
+                    if (((FT_FaceRec32*)face)->glyph->advance.x > 0)
+                        ((FT_FaceRec32*)face)->glyph->advance.x += xStrength;
+                    if (((FT_FaceRec32*)face)->glyph->advance.y > 0)
+                        ((FT_FaceRec32*)face)->glyph->advance.x += yStrength;
+                    ((FT_FaceRec32*)face)->glyph->metrics.width += xStrength;
+                    ((FT_FaceRec32*)face)->glyph->metrics.height += yStrength;
+                    ((FT_FaceRec32*)face)->glyph->metrics.horiBearingY += yStrength;
+                    ((FT_FaceRec32*)face)->glyph->metrics.horiAdvance += xStrength;
+                    ((FT_FaceRec32*)face)->glyph->metrics.vertBearingX -= xStrength / 2;
+                    ((FT_FaceRec32*)face)->glyph->metrics.vertBearingY += yStrength;
+                    ((FT_FaceRec32*)face)->glyph->metrics.vertAdvance += yStrength;
+
+                    ((FT_FaceRec32*)face)->glyph->bitmap_top += (yStrength >> 6);
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Gets a value indicating whether the face has the specified flag defined.
         /// </summary>
@@ -146,7 +198,15 @@ namespace FreeTypeSharp.Native
         /// <summary>
         /// Gets the current glyph bitmap.
         /// </summary>
-        public FT_Bitmap GlyphBitmap => Use64BitInterface ? ((FT_FaceRec64*)face)->glyph->bitmap : ((FT_FaceRec32*)face)->glyph->bitmap;
+        public ref FT_Bitmap GlyphBitmap
+        {
+            get
+            {
+                if (Use64BitInterface)
+                    return ref ((FT_FaceRec64*)face)->glyph->bitmap;
+                return ref ((FT_FaceRec32*)face)->glyph->bitmap;
+            }
+        }
 
         /// <summary>
         /// Gets the left offset of the current glyph bitmap.
@@ -200,5 +260,6 @@ namespace FreeTypeSharp.Native
 
         // A pointer to the wrapped FreeType2 face object.
         private readonly IntPtr face;
+        private readonly IntPtr library;
     }
 }

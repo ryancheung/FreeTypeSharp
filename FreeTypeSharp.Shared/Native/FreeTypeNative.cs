@@ -106,6 +106,11 @@ namespace FreeTypeSharp.Native
         [DllImport(LIBRARY, EntryPoint="FT_Property_Set", CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Property_Set(IntPtr alibrary, string module_name, string property_name, IntPtr value);
 
+        [DllImport(LIBRARY, EntryPoint="FT_Bitmap_Embolden", CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Bitmap_Embolden32(IntPtr library, IntPtr bitmap, Int32 xStrength, Int32 yStrength);
+
+        [DllImport(LIBRARY, EntryPoint="FT_Bitmap_Embolden", CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Bitmap_Embolden64(IntPtr library, IntPtr bitmap, Int64 xStrength, Int64 yStrength);
     }
 #pragma warning restore 1591
 }
