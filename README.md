@@ -22,6 +22,7 @@ FreeTypeSharp intends to provides cross-platform bindings for:
 
 `dotnet add package FreeTypeSharp.Android`
 
-# Credit
+# Credits
 
 - https://github.com/tlgkccampbell/ultraviolet
+- https://github.com/Robmaister/SharpFont/
