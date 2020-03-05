@@ -24,6 +24,12 @@ FreeTypeSharp intends to provides cross-platform bindings for:
 
 `dotnet add package FreeTypeSharp.Android`
 
+# Usage
+
+There's no magic(abstraction) based on the original C freetype API. All managed API are almost identical with the original freetype C API. Import the namespace `FreeTypeSharp.Native` and then you can play the font rendering as what you do in C.
+
+Optionally, a facade `FT_FaceRecFacade` was provided to handle some basic job. Feel free to use it.
+
 # Credits
 
 - https://github.com/tlgkccampbell/ultraviolet
