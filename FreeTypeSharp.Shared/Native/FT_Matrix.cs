@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 namespace FreeTypeSharp.Native
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct FT_ListRec
+    public struct FT_Matrix
     {
-        public IntPtr head;
-        public IntPtr tail;
+        public IntPtr xx, xy;
+        public IntPtr yx, yy;
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using static FreeTypeSharp.Native.FreeTypeNative;
+using static FreeTypeSharp.Native.FT;
 using static FreeTypeSharp.Native.FT_Error;
-using static FreeTypeSharp.Native.FT_Kerning_Mode;
 
 namespace FreeTypeSharp.Native
 {
@@ -17,8 +16,9 @@ namespace FreeTypeSharp.Native
         /// <param name="face">A pointer to the wrapped FreeType2 face object.</param>
         public FT_FaceRecFacade(IntPtr face, IntPtr library)
         {
-            this.face = face;
-            this.library = library;
+            _Face = face;
+            _FaceRec = (FT_FaceRec*)this._Face;
+            _Library = library;
         }
 
         /// <summary>
@@ -27,11 +27,10 @@ namespace FreeTypeSharp.Native
         /// <param name="sizeInPoints">The size in points to select.</param>
         /// <param name="dpiX">The horizontal pixel density.</param>
         /// <param name="dpiY">The vertical pixel density.</param>
-        public void SelectCharSize(Int32 sizeInPoints, UInt32 dpiX, UInt32 dpiY)
+        public void SelectCharSize(int sizeInPoints, uint dpiX, uint dpiY)
         {
-            var err = Use64BitInterface ?
-                FT_Set_Char_Size64(face, 0, FreeTypeCalc.Int32ToF26Dot6(sizeInPoints), dpiX, dpiY) :
-                FT_Set_Char_Size32(face, 0, FreeTypeCalc.Int32ToF26Dot6(sizeInPoints), dpiX, dpiY);
+            var size = (IntPtr)FreeTypeCalc.Int32ToF26Dot6(sizeInPoints);
+            var err = FT_Set_Char_Size(_Face, size, size, dpiX, dpiY);
             if (err != FT_Err_Ok)
                 throw new FreeTypeException(err);
         }
@@ -40,9 +39,9 @@ namespace FreeTypeSharp.Native
         /// Selects the specified fixed size for the font face.
         /// </summary>
         /// <param name="ix">The index of the fixed size to select.</param>
-        public void SelectFixedSize(Int32 ix)
+        public void SelectFixedSize(int ix)
         {
-            var err = FT_Select_Size(face, ix);
+            var err = FT_Select_Size(_Face, ix);
             if (err != FT_Err_Ok)
                 throw new FreeTypeException(err);
         }
@@ -52,26 +51,26 @@ namespace FreeTypeSharp.Native
         /// </summary>
         /// <param name="charcode">The character code for which to retrieve a glyph index.</param>
         /// <returns>The glyph index of the specified character, or 0 if the character is not defined by this face.</returns>
-        public UInt32 GetCharIndex(UInt32 charcode) => Use64BitInterface ? FT_Get_Char_Index64(face, charcode) : FT_Get_Char_Index32(face, charcode);
+        public uint GetCharIndex(uint charCode) => FT_Get_Char_Index(_Face, charCode);
 
         /// <summary>
         /// Marshals the face's family name to a C# string.
         /// </summary>
         /// <returns>The marshalled string.</returns>
-        public String MarshalFamilyName() => Marshal.PtrToStringAnsi(Use64BitInterface ? ((FT_FaceRec64*)face)->family_name : ((FT_FaceRec32*)face)->family_name);
+        public string MarshalFamilyName() => Marshal.PtrToStringAnsi(_FaceRec->family_name);
 
         /// <summary>
         /// Marshals the face's style name to a C# string.
         /// </summary>
         /// <returns>The marshalled string.</returns>
-        public String MarshalStyleName() => Marshal.PtrToStringAnsi(Use64BitInterface ? ((FT_FaceRec64*)face)->style_name : ((FT_FaceRec32*)face)->style_name);
+        public string MarshalStyleName() => Marshal.PtrToStringAnsi(_FaceRec->style_name);
 
         /// <summary>
         /// Returns the specified character if it is defined by this face; otherwise, returns <see langword="null"/>.
         /// </summary>
         /// <param name="c">The character to evaluate.</param>
         /// <returns>The specified character, if it is defined by this face; otherwise, <see langword="null"/>.</returns>
-        public Char? GetCharIfDefined(Char c) => (Use64BitInterface ? FT_Get_Char_Index64(face, c) : FT_Get_Char_Index32(face, c)) > 0 ? c : (Char?)null;
+        public char? GetCharIfDefined(Char c) => FT_Get_Char_Index(_Face, c) > 0 ? c : (char?)null;
 
         /// <summary>
         /// Returns the index of the fixed size which is the closest match to the specified pixel size.
@@ -79,21 +78,20 @@ namespace FreeTypeSharp.Native
         /// <param name="sizeInPixels">The desired size in pixels.</param>
         /// <param name="requireExactMatch">A value indicating whether to require an exact match.</param>
         /// <returns>The index of the closest matching fixed size.</returns>
-        public Int32 FindNearestMatchingPixelSize(Int32 sizeInPixels, Boolean requireExactMatch = false)
+        public int FindNearestMatchingPixelSize(int sizeInPixels, bool requireExactMatch = false)
         {
-            var numFixedSizes = Use64BitInterface ? ((FT_FaceRec64*)face)->num_fixed_sizes : ((FT_FaceRec32*)face)->num_fixed_sizes;
+            var numFixedSizes = _FaceRec->num_fixed_sizes;
             if (numFixedSizes == 0)
                 throw new InvalidOperationException("FONT_DOES_NOT_HAVE_BITMAP_STRIKES");
 
-            Int32 GetFixedSizeInPixels(IntPtr face, Int32 ix) =>
-                Use64BitInterface ? ((FT_FaceRec64*)face)->available_sizes[ix].height : ((FT_FaceRec32*)face)->available_sizes[ix].height;
+            int GetFixedSizeInPixels(FT_FaceRec* face, int ix) => face->available_sizes[ix].height;
 
             var bestMatchIx = 0;
-            var bestMatchDiff = Math.Abs(GetFixedSizeInPixels(face, 0) - sizeInPixels);
+            var bestMatchDiff = Math.Abs(GetFixedSizeInPixels(_FaceRec, 0) - sizeInPixels);
 
             for (int i = 0; i < numFixedSizes; i++)
             {
-                var size = GetFixedSizeInPixels(face, i);
+                var size = GetFixedSizeInPixels(_FaceRec, i);
                 var diff = Math.Abs(size - sizeInPixels);
                 if (diff < bestMatchDiff)
                 {
@@ -114,46 +112,23 @@ namespace FreeTypeSharp.Native
 
             fixed (FT_Bitmap* bitmapPtr = &glyphBitmap)
             {
-                if (Use64BitInterface)
-                {
-                    var err = FT_Bitmap_Embolden64(library, (IntPtr)(bitmapPtr), (long)xStrength, (long)yStrength);
-                    if (err != FT_Err_Ok)
-                        return false;
+                var err = FT_Bitmap_Embolden(_Library, (IntPtr)(bitmapPtr), (IntPtr)xStrength, (IntPtr)yStrength);
+                if (err != FT_Err_Ok)
+                    return false;
 
-                    if (((FT_FaceRec64*)face)->glyph->advance.x > 0)
-                        ((FT_FaceRec64*)face)->glyph->advance.x += xStrength;
-                    if (((FT_FaceRec64*)face)->glyph->advance.y > 0)
-                        ((FT_FaceRec64*)face)->glyph->advance.x += yStrength;
-                    ((FT_FaceRec64*)face)->glyph->metrics.width += xStrength;
-                    ((FT_FaceRec64*)face)->glyph->metrics.height += yStrength;
-                    ((FT_FaceRec64*)face)->glyph->metrics.horiBearingY += yStrength;
-                    ((FT_FaceRec64*)face)->glyph->metrics.horiAdvance += xStrength;
-                    ((FT_FaceRec64*)face)->glyph->metrics.vertBearingX -= xStrength / 2;
-                    ((FT_FaceRec64*)face)->glyph->metrics.vertBearingY += yStrength;
-                    ((FT_FaceRec64*)face)->glyph->metrics.vertAdvance += yStrength;
+                if ((int)_FaceRec->glyph->advance.x > 0)
+                    _FaceRec->glyph->advance.x += xStrength;
+                if ((int)_FaceRec->glyph->advance.y > 0)
+                    _FaceRec->glyph->advance.x += yStrength;
+                _FaceRec->glyph->metrics.width += xStrength;
+                _FaceRec->glyph->metrics.height += yStrength;
+                _FaceRec->glyph->metrics.horiBearingY += yStrength;
+                _FaceRec->glyph->metrics.horiAdvance += xStrength;
+                _FaceRec->glyph->metrics.vertBearingX -= xStrength / 2;
+                _FaceRec->glyph->metrics.vertBearingY += yStrength;
+                _FaceRec->glyph->metrics.vertAdvance += yStrength;
 
-                    ((FT_FaceRec64*)face)->glyph->bitmap_top += (yStrength >> 6);
-                }
-                else
-                {
-                    var err = FT_Bitmap_Embolden32(library, (IntPtr)(bitmapPtr), xStrength, yStrength);
-                    if (err != FT_Err_Ok)
-                        return false;
-
-                    if (((FT_FaceRec32*)face)->glyph->advance.x > 0)
-                        ((FT_FaceRec32*)face)->glyph->advance.x += xStrength;
-                    if (((FT_FaceRec32*)face)->glyph->advance.y > 0)
-                        ((FT_FaceRec32*)face)->glyph->advance.x += yStrength;
-                    ((FT_FaceRec32*)face)->glyph->metrics.width += xStrength;
-                    ((FT_FaceRec32*)face)->glyph->metrics.height += yStrength;
-                    ((FT_FaceRec32*)face)->glyph->metrics.horiBearingY += yStrength;
-                    ((FT_FaceRec32*)face)->glyph->metrics.horiAdvance += xStrength;
-                    ((FT_FaceRec32*)face)->glyph->metrics.vertBearingX -= xStrength / 2;
-                    ((FT_FaceRec32*)face)->glyph->metrics.vertBearingY += yStrength;
-                    ((FT_FaceRec32*)face)->glyph->metrics.vertAdvance += yStrength;
-
-                    ((FT_FaceRec32*)face)->glyph->bitmap_top += (yStrength >> 6);
-                }
+                _FaceRec->glyph->bitmap_top += (yStrength >> 6);
             }
 
             return true;
@@ -164,102 +139,95 @@ namespace FreeTypeSharp.Native
         /// </summary>
         /// <param name="flag">The flag to evaluate.</param>
         /// <returns><see langword="true"/> if the face has the specified flag defined; otherwise, <see langword="false"/>.</returns>
-        public Boolean HasFaceFlag(Int32 flag) => ((Use64BitInterface ? (Int32)((FT_FaceRec64*)face)->face_flags : ((FT_FaceRec32*)face)->face_flags) & flag) != 0;
+        public bool HasFaceFlag(int flag) => (((int)_FaceRec->face_flags) & flag) != 0;
 
         /// <summary>
         /// Gets a value indicating whether the face has the FT_FACE_FLAG_SCALABLE flag set.
         /// </summary>
         /// <returns><see langword="true"/> if the face has the FT_FACE_FLAG_SCALABLE flag defined; otherwise, <see langword="false"/>.</returns>
-        public Boolean HasScalableFlag => HasFaceFlag(FT_FACE_FLAG_SCALABLE);
+        public bool HasScalableFlag => HasFaceFlag(FT_FACE_FLAG_SCALABLE);
 
         /// <summary>
         /// Gets a value indicating whether the face has the FT_FACE_FLAG_FIXED_SIZES flag set.
         /// </summary>
         /// <returns><see langword="true"/> if the face has the FT_FACE_FLAG_FIXED_SIZES flag defined; otherwise, <see langword="false"/>.</returns>
-        public Boolean HasFixedSizes => HasFaceFlag(FT_FACE_FLAG_FIXED_SIZES);
+        public bool HasFixedSizes => HasFaceFlag(FT_FACE_FLAG_FIXED_SIZES);
 
         /// <summary>
         /// Gets a value indicating whether the face has the FT_FACE_FLAG_COLOR flag set.
         /// </summary>
         /// <returns><see langword="true"/> if the face has the FT_FACE_FLAG_COLOR flag defined; otherwise, <see langword="false"/>.</returns>
-        public Boolean HasColorFlag => HasFaceFlag(FT_FACE_FLAG_COLOR);
+        public bool HasColorFlag => HasFaceFlag(FT_FACE_FLAG_COLOR);
 
         /// <summary>
         /// Gets a value indicating whether the face has the FT_FACE_FLAG_KERNING flag set.
         /// </summary>
         /// <returns><see langword="true"/> if the face has the FT_FACE_FLAG_KERNING flag defined; otherwise, <see langword="false"/>.</returns>
-        public Boolean HasKerningFlag => HasFaceFlag(FT_FACE_FLAG_KERNING);
+        public bool HasKerningFlag => HasFaceFlag(FT_FACE_FLAG_KERNING);
 
         /// <summary>
         /// Gets a value indicating whether the face has any bitmap strikes with fixed sizes.
         /// </summary>
-        public Boolean HasBitmapStrikes => (Use64BitInterface ? ((FT_FaceRec64*)face)->num_fixed_sizes : ((FT_FaceRec32*)face)->num_fixed_sizes) > 0;
+        public bool HasBitmapStrikes => (_FaceRec->num_fixed_sizes) > 0;
 
         /// <summary>
         /// Gets the current glyph bitmap.
         /// </summary>
-        public ref FT_Bitmap GlyphBitmap
-        {
-            get
-            {
-                if (Use64BitInterface)
-                    return ref ((FT_FaceRec64*)face)->glyph->bitmap;
-                return ref ((FT_FaceRec32*)face)->glyph->bitmap;
-            }
-        }
+        public ref FT_Bitmap GlyphBitmap => ref _FaceRec->glyph->bitmap;
 
         /// <summary>
         /// Gets the left offset of the current glyph bitmap.
         /// </summary>
-        public Int32 GlyphBitmapLeft => Use64BitInterface ? ((FT_FaceRec64*)face)->glyph->bitmap_left : ((FT_FaceRec32*)face)->glyph->bitmap_left;
+        public int GlyphBitmapLeft => _FaceRec->glyph->bitmap_left;
 
         /// <summary>
         /// Gets the right offset of the current glyph bitmap.
         /// </summary>
-        public Int32 GlyphBitmapTop => Use64BitInterface ? ((FT_FaceRec64*)face)->glyph->bitmap_top : ((FT_FaceRec32*)face)->glyph->bitmap_top;
+        public int GlyphBitmapTop => _FaceRec->glyph->bitmap_top;
 
         /// <summary>
         /// Gets the width in pixels of the current glyph.
         /// </summary>
-        public Int32 GlyphMetricWidth => FreeTypeCalc.F26Dot6ToInt32(Use64BitInterface ? ((FT_FaceRec64*)face)->glyph->metrics.width : ((FT_FaceRec32*)face)->glyph->metrics.width);
+        public Int32 GlyphMetricWidth => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->glyph->metrics.width);
 
         /// <summary>
         /// Gets the height in pixels of the current glyph.
         /// </summary>
-        public Int32 GlyphMetricHeight => FreeTypeCalc.F26Dot6ToInt32(Use64BitInterface ? ((FT_FaceRec64*)face)->glyph->metrics.height : ((FT_FaceRec32*)face)->glyph->metrics.height);
+        public Int32 GlyphMetricHeight => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->glyph->metrics.height);
 
         /// <summary>
         /// Gets the horizontal advance of the current glyph.
         /// </summary>
-        public Int32 GlyphMetricHorizontalAdvance => FreeTypeCalc.F26Dot6ToInt32(Use64BitInterface ? ((FT_FaceRec64*)face)->glyph->metrics.horiAdvance : ((FT_FaceRec32*)face)->glyph->metrics.horiAdvance);
+        public Int32 GlyphMetricHorizontalAdvance => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->glyph->metrics.horiAdvance);
 
         /// <summary>
         /// Gets the vertical advance of the current glyph.
         /// </summary>
-        public Int32 GlyphMetricVerticalAdvance => FreeTypeCalc.F26Dot6ToInt32(Use64BitInterface ? ((FT_FaceRec64*)face)->glyph->metrics.vertAdvance : ((FT_FaceRec32*)face)->glyph->metrics.vertAdvance);
+        public Int32 GlyphMetricVerticalAdvance => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->glyph->metrics.vertAdvance);
 
         /// <summary>
         /// Gets the face's ascender size in pixels.
         /// </summary>
-        public Int32 Ascender => FreeTypeCalc.F26Dot6ToInt32(Use64BitInterface ? ((FT_FaceRec64*)face)->size->metrics.ascender : ((FT_FaceRec32*)face)->size->metrics.ascender);
+        public Int32 Ascender => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->size->metrics.ascender);
 
         /// <summary>
         /// Gets the face's descender size in pixels.
         /// </summary>
-        public Int32 Descender => FreeTypeCalc.F26Dot6ToInt32(Use64BitInterface ? ((FT_FaceRec64*)face)->size->metrics.descender : ((FT_FaceRec32*)face)->size->metrics.descender);
+        public Int32 Descender => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->size->metrics.descender);
 
         /// <summary>
         /// Gets the face's line spacing in pixels.
         /// </summary>
-        public Int32 LineSpacing => FreeTypeCalc.F26Dot6ToInt32(Use64BitInterface ? ((FT_FaceRec64*)face)->size->metrics.height : ((FT_FaceRec32*)face)->size->metrics.height);
+        public Int32 LineSpacing => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->size->metrics.height);
 
         /// <summary>
         /// Gets a pointer to the face's glyph slot.
         /// </summary>
-        public IntPtr GlyphSlot => Use64BitInterface ? (IntPtr)((FT_FaceRec64*)face)->glyph : (IntPtr)((FT_FaceRec32*)face)->glyph;
+        public FT_GlyphSlotRec* GlyphSlot => _FaceRec->glyph;
 
         // A pointer to the wrapped FreeType2 face object.
-        private readonly IntPtr face;
-        private readonly IntPtr library;
+        private readonly IntPtr _Face;
+        private readonly FT_FaceRec* _FaceRec;
+        private readonly IntPtr _Library;
     }
 }

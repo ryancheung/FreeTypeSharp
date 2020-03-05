@@ -1,17 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29827.131
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FreeTypeSharp.Shared", "FreeTypeSharp.Shared\FreeTypeSharp.Shared.shproj", "{8B03EE04-FCD0-405A-89CF-3274C1E72695}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTypeSharp.Core", "FreeTypeSharp.Core\FreeTypeSharp.Core.csproj", "{F03BDA73-4754-4199-B144-C2588A5912DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTypeSharp.Core", "FreeTypeSharp.Core\FreeTypeSharp.Core.csproj", "{F03BDA73-4754-4199-B144-C2588A5912DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTypeSharp.iOS", "FreeTypeSharp.iOS\FreeTypeSharp.iOS.csproj", "{8D016D01-EFC6-4745-BBDE-AD66CCD36690}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTypeSharp.Android", "FreeTypeSharp.Android\FreeTypeSharp.Android.csproj", "{A1BB0D95-50CA-4FFF-B5D1-AE16A99FE906}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems*{8b03ee04-fcd0-405a-89cf-3274c1e72695}*SharedItemsImports = 13
+		FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems*{8d016d01-efc6-4745-bbde-ad66ccd36690}*SharedItemsImports = 4
+		FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems*{a1bb0d95-50ca-4fff-b5d1-ae16a99fe906}*SharedItemsImports = 4
+		FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems*{f03bda73-4754-4199-b144-c2588a5912dc}*SharedItemsImports = 5
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -19,9 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F03BDA73-4754-4199-B144-C2588A5912DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -60,5 +63,11 @@ Global
 		{A1BB0D95-50CA-4FFF-B5D1-AE16A99FE906}.Release|x64.Build.0 = Release|Any CPU
 		{A1BB0D95-50CA-4FFF-B5D1-AE16A99FE906}.Release|x86.ActiveCfg = Release|Any CPU
 		{A1BB0D95-50CA-4FFF-B5D1-AE16A99FE906}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDACDF74-CDA0-4643-B9A2-A48A365867A7}
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,5 @@
 ﻿namespace FreeTypeSharp.Native
 {
-#pragma warning disable 1591
     public enum FT_Render_Mode
     {
         FT_RENDER_MODE_NORMAL = 0,
@@ -11,5 +10,4 @@
 
         FT_RENDER_MODE_MAX
     }
-#pragma warning restore 1591
 }
