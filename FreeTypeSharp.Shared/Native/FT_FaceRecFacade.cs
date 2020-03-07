@@ -29,7 +29,7 @@ namespace FreeTypeSharp.Native
         /// <param name="dpiY">The vertical pixel density.</param>
         public void SelectCharSize(int sizeInPoints, uint dpiX, uint dpiY)
         {
-            var size = (IntPtr)FreeTypeCalc.Int32ToF26Dot6(sizeInPoints);
+            var size = (IntPtr)(sizeInPoints << 6);
             var err = FT_Set_Char_Size(_Face, size, size, dpiX, dpiY);
             if (err != FT_Err_Ok)
                 throw new FreeTypeException(err);
@@ -188,37 +188,42 @@ namespace FreeTypeSharp.Native
         /// <summary>
         /// Gets the width in pixels of the current glyph.
         /// </summary>
-        public Int32 GlyphMetricWidth => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->glyph->metrics.width);
+        public int GlyphMetricWidth => (int)_FaceRec->glyph->metrics.width >> 6;
 
         /// <summary>
         /// Gets the height in pixels of the current glyph.
         /// </summary>
-        public Int32 GlyphMetricHeight => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->glyph->metrics.height);
+        public int GlyphMetricHeight => (int)_FaceRec->glyph->metrics.height >> 6;
 
         /// <summary>
         /// Gets the horizontal advance of the current glyph.
         /// </summary>
-        public Int32 GlyphMetricHorizontalAdvance => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->glyph->metrics.horiAdvance);
+        public int GlyphMetricHorizontalAdvance => (int)_FaceRec->glyph->metrics.horiAdvance >> 6;
 
         /// <summary>
         /// Gets the vertical advance of the current glyph.
         /// </summary>
-        public Int32 GlyphMetricVerticalAdvance => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->glyph->metrics.vertAdvance);
+        public int GlyphMetricVerticalAdvance => (int)_FaceRec->glyph->metrics.vertAdvance >> 6;
 
         /// <summary>
         /// Gets the face's ascender size in pixels.
         /// </summary>
-        public Int32 Ascender => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->size->metrics.ascender);
+        public int Ascender => (int)_FaceRec->size->metrics.ascender >> 6;
 
         /// <summary>
         /// Gets the face's descender size in pixels.
         /// </summary>
-        public Int32 Descender => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->size->metrics.descender);
+        public int Descender => (int)_FaceRec->size->metrics.descender >> 6;
 
         /// <summary>
         /// Gets the face's line spacing in pixels.
         /// </summary>
-        public Int32 LineSpacing => FreeTypeCalc.F26Dot6ToInt32((int)_FaceRec->size->metrics.height);
+        public int LineSpacing => (int)_FaceRec->size->metrics.height >> 6;
+
+        /// <summary>
+        /// Gets the face's underline position.
+        /// </summary>
+        public int UnderlinePosition => _FaceRec->underline_position >> 6;
 
         /// <summary>
         /// Gets a pointer to the face's glyph slot.
