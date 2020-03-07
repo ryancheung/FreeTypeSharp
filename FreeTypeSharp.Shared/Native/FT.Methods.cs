@@ -6,6 +6,8 @@ namespace FreeTypeSharp.Native
     public static unsafe partial class FT
     {
 
+#if !DESKTOP
+
 #if ANDROID
         const string FreetypeDll = "freetype";
 #elif __IOS__
@@ -599,6 +601,7 @@ namespace FreeTypeSharp.Native
         #endregion
 
         #endregion
+#endif
 
     }
 }
