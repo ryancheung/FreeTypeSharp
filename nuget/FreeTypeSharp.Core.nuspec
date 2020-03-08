@@ -12,7 +12,7 @@
     <description>This package provides you with managed FreeType2 on Windows, Linux and MacOS</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2020 ryancheung</copyright>
-    <tags>freetype2 netcoreapp3.1</tags>
+    <tags>freetype2 netcoreapp3.1 netstandard2.0</tags>
 
     <dependencies>
       <group targetFramework="netcoreapp3.1">
