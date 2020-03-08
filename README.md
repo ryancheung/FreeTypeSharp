@@ -6,20 +6,16 @@ A moden managed FreeType2 library based on the freetype2 code in the [ultraviole
 
 FreeTypeSharp intends to provides cross-platform bindings for:
 
-- Net Standard 2.0 (Only works for Desktop platforms)
-- Net Core 3.1
+- NET Standard 2.0
+- NET Core 3.1
 - Xamarin.Android
 - Xamarin.iOS
 
 # Installation
 
-### Net Core 3.1
+### NET Standard 2.0 & NET Core 3.1
 
 `dotnet add package FreeTypeSharp.Core`
-
-### Net Standard 2.0
-
-`dotnet add package FreeTypeSharp.Desktop`
 
 ### Xamarin.iOS
 
