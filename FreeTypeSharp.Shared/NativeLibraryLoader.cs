@@ -1,4 +1,4 @@
-#if DESKTOP
+#if NETSTANDARD2_0
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -13,7 +13,7 @@ namespace FreeTypeSharp
     public static class NativeLibraryLoader
     {
 
-#if DESKTOP
+#if NETSTANDARD2_0
 
         public static string NativeLibraryPath { get; private set; }
         public delegate IntPtr SymbolLookupDelegate(IntPtr addr, string name);

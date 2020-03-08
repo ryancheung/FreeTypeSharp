@@ -1,4 +1,4 @@
-#if DESKTOP
+#if NETSTANDARD2_0
 using System;
 using System.Runtime.InteropServices;
 using static FreeTypeSharp.NativeLibraryLoader;
@@ -9,7 +9,7 @@ namespace FreeTypeSharp.Native
     static unsafe partial class FT
     {
 
-#if DESKTOP
+#if NETSTANDARD2_0
 
         #region Core API
 

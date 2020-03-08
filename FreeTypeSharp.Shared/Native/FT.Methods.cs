@@ -6,11 +6,9 @@ namespace FreeTypeSharp.Native
     public static unsafe partial class FT
     {
 
-#if !DESKTOP
+#if !NETSTANDARD2_0
 
-#if ANDROID
-        const string FreetypeDll = "freetype";
-#elif __IOS__
+#if __IOS__
         const string FreetypeDll = "__Internal";
 #else
         const string FreetypeDll = "freetype";
