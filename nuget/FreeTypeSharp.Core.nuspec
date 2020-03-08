@@ -9,7 +9,7 @@
     <license type="file">LICENSE.txt</license>
     <projectUrl>https://github.com/ryancheung/FreeTypeSharp</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>This package provides you with managed FreeType2 on Windows, Linux and MacoS</description>
+    <description>This package provides you with managed FreeType2 on Windows, Linux and MacOS</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2020 ryancheung</copyright>
     <tags>freetype2 netcoreapp3.1</tags>
