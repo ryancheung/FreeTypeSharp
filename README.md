@@ -27,7 +27,7 @@ FreeTypeSharp intends to provides cross-platform bindings for:
 
 # Usage
 
-There's no magic(abstraction) based on the original C freetype API. All managed API are almost identical with the original freetype C API. Import the namespace `FreeTypeSharp.Native` and then you can play the font rendering as what you do in C.
+There's no magic(abstraction) based on the original C freetype API. All managed API are almost identical with the original freetype C API. Import the namespaces like `using FreeTypeSharp.Native;` and `using static FreeTypeSharp.Native.FT;`, then you can play the font rendering as what you do in C.
 
 Optionally, a facade `FT_FaceRecFacade` was provided to handle some basic job. Feel free to use it.
 
