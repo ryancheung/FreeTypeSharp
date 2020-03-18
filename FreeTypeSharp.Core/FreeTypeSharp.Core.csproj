@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -15,12 +15,35 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\Dependencies\FreeType2\windows\x64\freetype.dll" Link="nuget\runtimes\win-x64\native\freetype.dll" Condition=" Exists('..\Dependencies\FreeType2\windows\x64\freetype.dll') " />
-    <None Include="..\Dependencies\FreeType2\windows\x86\freetype.dll" Link="nuget\runtimes\win-x86\native\freetype.dll" Condition=" Exists('..\Dependencies\FreeType2\windows\x86\freetype.dll') " />
+    <Content Include="..\Dependencies\FreeType2\windows\x86\freetype.dll">
+      <Link>runtimes\win-x86\native\freetype.dll</Link>
+      <Pack>true</Pack>
+      <PackagePath>runtimes\win-x86\native\freetype.dll</PackagePath>
+    </Content>
+    <Content Include="..\Dependencies\FreeType2\windows\x64\freetype.dll">
+      <Link>runtimes\win-x64\native\freetype.dll</Link>
+      <Pack>true</Pack>
+      <PackagePath>runtimes\win-x64\native\freetype.dll</PackagePath>
+    </Content>
 
-    <None Include="..\Dependencies\FreeType2\osx\libfreetype.dylib" Link="nuget\runtimes\osx\native\libfreetype.dylib" Condition=" Exists('..\Dependencies\FreeType2\osx\libfreetype.dylib') " />
+    <Content Include="..\Dependencies\FreeType2\osx\libfreetype.dylib">
+      <Link>runtimes\osx\native\libfreetype.dylib</Link>
+      <Pack>true</Pack>
+      <PackagePath>runtimes\osx\native\libfreetype.dylib</PackagePath>
+    </Content>
 
-    <None Include="..\Dependencies\FreeType2\linux\x64\libfreetype.so" Link="nuget\runtimes\linux-x64\native\libfreetype.so" Condition=" Exists('..\Dependencies\FreeType2\linux\x64\libfreetype.so') " />
+    <Content Include="..\Dependencies\FreeType2\linux\x64\libfreetype.so">
+      <Link>runtimes\linux-x64\native\libfreetype.so</Link>
+      <Pack>true</Pack>
+      <PackagePath>runtimes\linux-x64\native\libfreetype.so</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\build\FreeTypeSharp.Core.targets" Pack="true" PackagePath="build\net462" />
+    <None Include="..\build\FreeTypeSharp.Core.targets" Pack="true" PackagePath="build\netstandard2.0" />
+
+    <None Include="..\LICENSE.txt" Pack="true" />
   </ItemGroup>
 
   <Import Project="..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems" Label="Shared" Condition="Exists('..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems')" />

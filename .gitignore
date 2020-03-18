@@ -373,3 +373,7 @@ Temporary Items
 
 # Project
 .vscode
+
+# Cake
+tools/**
+!tools/packages.config

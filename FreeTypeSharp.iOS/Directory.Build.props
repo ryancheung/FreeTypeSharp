@@ -1,0 +1,24 @@
+<Project>
+
+  <PropertyGroup>
+    <ProjectPlatform>iOS</ProjectPlatform>
+    <BaseIntermediateOutputPath>obj\$(ProjectPlatform)</BaseIntermediateOutputPath>
+    <BaseOutputPath>..\Artifacts\$(ProjectPlatform)</BaseOutputPath>
+    <OutputPath>..\Artifacts\$(ProjectPlatform)\$(Configuration)</OutputPath>
+    <RootNamespace>FreeTypeSharp</RootNamespace>
+    <AssemblyName>FreeTypeSharp.$(ProjectPlatform)</AssemblyName>
+    <PackageId>FreeTypeSharp.$(ProjectPlatform)</PackageId>
+    <PackageProjectUrl>https://github.com/ryancheung/FreeTypeSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ryancheung/FreeTypeSharp</RepositoryUrl>
+    <Authors>ryancheung</Authors>
+    <Copyright>Copyright (c) 2020 ryancheung</Copyright>
+    <Title>FreeTypeSharp.$(ProjectPlatform)</Title>
+    <PackageTags>freetype2 xamarin.ios</PackageTags>
+    <Description>
+      A moden cross-platform managed FreeType2 library. This package provides you with managed FreeType2 on iOS.
+    </Description>
+
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+</Project>
