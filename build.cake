@@ -7,6 +7,7 @@
 var target = Argument("build-target", "Default");
 var version = Argument("build-version", EnvironmentVariable("BUILD_NUMBER") ?? "0.0.0.0");
 var configuration = Argument("build-configuration", "Release");
+var apiKey = Argument("api-key", "");
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -132,7 +133,7 @@ Task("Publish")
     .IsDependentOn("Pack")
 .Does(() =>
 {
-    var args = $"push -Source \"https://api.nuget.org/v3/index.json\" -ApiKey az Artifacts\\FreeTypeSharp.{version}.nupkg";
+    var args = $"push -Source \"https://api.nuget.org/v3/index.json\" -ApiKey {apiKey} Artifacts/FreeTypeSharp.{version}.nupkg";
 
     RunProcess(NuGetToolPath, args);
 });
