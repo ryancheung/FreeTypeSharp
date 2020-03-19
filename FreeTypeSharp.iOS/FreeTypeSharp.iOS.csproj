@@ -35,9 +35,5 @@
     </NativeReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\LICENSE.txt" Pack="true" />
-  </ItemGroup>
-
   <Import Project="..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems" Label="Shared" Condition="Exists('..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems')" />
 </Project>

@@ -6,44 +6,29 @@
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DefineConstants>TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;NETSTANDARD2_0;</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DebugType></DebugType>
-    <DefineConstants>TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1;NETSTANDARD2_0;</DefineConstants>
+    <DefineConstants>TRACE;RELEASE;NETSTANDARD2_0;</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="..\Dependencies\FreeType2\windows\x86\freetype.dll">
       <Link>runtimes\win-x86\native\freetype.dll</Link>
-      <Pack>true</Pack>
-      <PackagePath>runtimes\win-x86\native\freetype.dll</PackagePath>
     </Content>
     <Content Include="..\Dependencies\FreeType2\windows\x64\freetype.dll">
       <Link>runtimes\win-x64\native\freetype.dll</Link>
-      <Pack>true</Pack>
-      <PackagePath>runtimes\win-x64\native\freetype.dll</PackagePath>
     </Content>
 
     <Content Include="..\Dependencies\FreeType2\osx\libfreetype.dylib">
       <Link>runtimes\osx\native\libfreetype.dylib</Link>
-      <Pack>true</Pack>
-      <PackagePath>runtimes\osx\native\libfreetype.dylib</PackagePath>
     </Content>
 
     <Content Include="..\Dependencies\FreeType2\linux\x64\libfreetype.so">
       <Link>runtimes\linux-x64\native\libfreetype.so</Link>
-      <Pack>true</Pack>
-      <PackagePath>runtimes\linux-x64\native\libfreetype.so</PackagePath>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\build\FreeTypeSharp.Core.targets" Pack="true" PackagePath="build\net462" />
-    <None Include="..\build\FreeTypeSharp.Core.targets" Pack="true" PackagePath="build\netstandard2.0" />
-
-    <None Include="..\LICENSE.txt" Pack="true" />
   </ItemGroup>
 
   <Import Project="..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems" Label="Shared" Condition="Exists('..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems')" />
