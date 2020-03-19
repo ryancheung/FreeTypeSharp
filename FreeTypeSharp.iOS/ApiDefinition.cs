@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using ObjCRuntime;
 using Foundation;
@@ -63,4 +63,3 @@ namespace FreeTypeSharp
     // For more information, see https://aka.ms/ios-binding
     //
 }
-

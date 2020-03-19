@@ -1,51 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectTypeGuids>{8FFB629D-F513-41CE-95D2-7ECE97B6EEEC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{8D016D01-EFC6-4745-BBDE-AD66CCD36690}</ProjectGuid>
-    <TemplateGuid>{b6f3ff35-79b2-4f25-a2fc-60a7cf61013b}</TemplateGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>FreeTypeSharp</RootNamespace>
-    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>FreeTypeSharp.iOS</AssemblyName>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>xamarinios10</TargetFramework>
+    <IsBindingProject>true</IsBindingProject>
+    <DefineConstants>__IOS__;IOS;</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Compile Remove="bin\**\*" />
+    <Compile Remove="obj\**\*" />
+    <Compile Remove="Properties\**\*" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Remove="ApiDefinition.cs" />
+    <Compile Remove="Structs.cs" />
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ObjcBindingCoreSource Include="Structs.cs" />
   </ItemGroup>
+
   <ItemGroup>
     <NativeReference Include="..\Dependencies\FreeType2\ios\libfreetype.a">
       <Kind>Static</Kind>
@@ -54,6 +34,6 @@
       <LinkerFlags>-lbz2</LinkerFlags>
     </NativeReference>
   </ItemGroup>
+
   <Import Project="..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems" Label="Shared" Condition="Exists('..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems')" />
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
 </Project>

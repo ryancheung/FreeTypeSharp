@@ -1,41 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A1BB0D95-50CA-4FFF-B5D1-AE16A99FE906}</ProjectGuid>
-    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TemplateGuid>{9ef11e43-1701-4396-8835-8392d57abb70}</TemplateGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FreeTypeSharp</RootNamespace>
-    <AssemblyName>FreeTypeSharp.Android</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
-    <AndroidUseAapt2>true</AndroidUseAapt2>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;ANDROID</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>monoandroid90</TargetFramework>
+    <DefineConstants>ANDROID;</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;ANDROID</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="bin\**\*" />
+    <Compile Remove="obj\**\*" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
@@ -46,9 +20,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
   </ItemGroup>
   <ItemGroup>
@@ -57,13 +28,7 @@
     <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\x86\libfreetype.so" Link="libs\x86\libfreetype.so" />
     <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\x86_64\libfreetype.so" Link="libs\x86_64\libfreetype.so" />
   </ItemGroup>
+
   <Import Project="..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems" Label="Shared" Condition="Exists('..\FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems')" />
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

@@ -1,0 +1,13 @@
+<Project>
+
+  <PropertyGroup>
+    <ProjectPlatform>Android</ProjectPlatform>
+    <BaseOutputPath>..\Artifacts\$(ProjectPlatform)</BaseOutputPath>
+    <OutputPath>..\Artifacts\$(ProjectPlatform)\$(Configuration)</OutputPath>
+    <RootNamespace>FreeTypeSharp</RootNamespace>
+    <AssemblyName>FreeTypeSharp</AssemblyName>
+
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+</Project>
