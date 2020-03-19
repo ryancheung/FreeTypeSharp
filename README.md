@@ -12,17 +12,9 @@ FreeTypeSharp intends to provides cross-platform bindings for:
 
 # Installation
 
-### NET Standard 2.0
+**NOTE package FreeTypeSharp.Core, FreeTypeSharp.iOS, FreeTypeSharp.Android are deprecatd, they were unified to one package FreeTypeSharp**
 
-`dotnet add package FreeTypeSharp.Core`
-
-### Xamarin.iOS
-
-`dotnet add package FreeTypeSharp.iOS`
-
-### Xamarin.Android
-
-`dotnet add package FreeTypeSharp.Android`
+`dotnet add package FreeTypeSharp`
 
 # Usage
 
