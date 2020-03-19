@@ -50,6 +50,7 @@ var PackageNuGet = new Action<FilePath, DirectoryPath> ((nuspecPath, outputPath)
         OutputDirectory = outputPath,
         BasePath = nuspecPath.GetDirectory (),
         ToolPath = NuGetToolPath,
+        Version = version
     });
 });
 
@@ -77,7 +78,7 @@ Task("Prep")
     Console.WriteLine("Build Version: {0}", version);
 
     msBuildSettings = new MSBuildSettings();
-    msBuildSettings.Verbosity = Verbosity.Normal;
+    msBuildSettings.Verbosity = Verbosity.Minimal;
     msBuildSettings.Configuration = configuration;
     msBuildSettings.WithProperty("Version", version);
 });
@@ -118,7 +119,7 @@ Task("BuildiOS")
 Task("Pack")
     .IsDependentOn("BuildCore")
     .IsDependentOn("BuildAndroid")
-    .IsDependentOn("BuildiOS");
+    .IsDependentOn("BuildiOS")
 .Does(() =>
 {
     PackageNuGet(NuGetSpecFile, "Artifacts");
