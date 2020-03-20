@@ -39,6 +39,9 @@ namespace FreeTypeSharp
 
         #region Properties
 
+        public IntPtr Face => _Face;
+        public FT_FaceRec* FaceRec => _FaceRec;
+
         /// <summary>
         /// Gets a value indicating whether the face has the FT_FACE_FLAG_SCALABLE flag set.
         /// </summary>
