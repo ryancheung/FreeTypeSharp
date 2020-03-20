@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FreeTypeCalc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FreeTypeException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FreeTypeLibrary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FreeTypeFaceFacade.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeReference.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PInvokeHelper.cs" />

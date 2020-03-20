@@ -8,6 +8,7 @@ namespace FreeTypeSharp.Native
     /// <summary>
     /// Represents an interface-agnostic facade over a FreeType2 face pointer.
     /// </summary>
+    [Obsolete("FT_FaceRecFacade is deprecated, please use FreeTypeFaceFacade instead.", false)]
     public unsafe struct FT_FaceRecFacade
     {
         /// <summary>
