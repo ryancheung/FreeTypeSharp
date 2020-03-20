@@ -10,6 +10,10 @@ FreeTypeSharp intends to provides cross-platform bindings for:
 - Xamarin.Android
 - Xamarin.iOS
 
+## FreeType Wrapped
+
+FreeType 2.10.1
+
 # Installation
 
 **NOTE package FreeTypeSharp.Core, FreeTypeSharp.iOS, FreeTypeSharp.Android are deprecatd, they were unified to one package FreeTypeSharp**
