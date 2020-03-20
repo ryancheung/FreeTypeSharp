@@ -117,6 +117,11 @@ Task("BuildiOS")
     BuildProject("FreeTypeSharp.iOS/FreeTypeSharp.iOS.csproj");
 });
 
+Task("Default")
+    .IsDependentOn("BuildCore")
+    .IsDependentOn("BuildAndroid")
+    .IsDependentOn("BuildiOS");
+
 Task("Pack")
     .IsDependentOn("BuildCore")
     .IsDependentOn("BuildAndroid")
@@ -125,9 +130,6 @@ Task("Pack")
 {
     PackageNuGet(NuGetSpecFile, "Artifacts");
 });
-
-Task("Default")
-    .IsDependentOn("Pack");
 
 Task("Publish")
     .IsDependentOn("Pack")
