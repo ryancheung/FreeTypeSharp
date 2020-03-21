@@ -104,16 +104,17 @@ namespace FreeTypeSharp
 
         private static IntPtr LoadAndroidLibrary(out SymbolLookupDelegate symbolLookup)
         {
-            var addr = dlopen("freetype", RTLD_NOW);
+            var libName = "libfreetype.so";
+            var addr = dlopen(libName, RTLD_NOW);
+
             if (addr == IntPtr.Zero)
             {
                 // Not using NanosmgException because it depends on nn_errno.
                 var error = Marshal.PtrToStringAnsi(dlerror());
-                throw new Exception("dlopen freetype failed in Android, error: " + error);
+                throw new Exception("Android - dlopen failed: " + libName + " : " + error);
             }
-
             symbolLookup = dlsym;
-            NativeLibraryPath = "freetype";
+            NativeLibraryPath = libName;
             return addr;
         }
 
