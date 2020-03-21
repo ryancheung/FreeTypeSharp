@@ -7,7 +7,7 @@
     <RootNamespace>FreeTypeSharp</RootNamespace>
     <AssemblyName>FreeTypeSharp</AssemblyName>
 
-    <LangVersion>latest</LangVersion>
+    <LangVersion>5</LangVersion>
   </PropertyGroup>
 
 </Project>
