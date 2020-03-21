@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTypeSharp.iOS", "FreeTy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTypeSharp.Android", "FreeTypeSharp.Android\FreeTypeSharp.Android.csproj", "{A1BB0D95-50CA-4FFF-B5D1-AE16A99FE906}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTypeSharp.Core.Test", "FreeTypeSharp.Core.Test\FreeTypeSharp.Core.Test.csproj", "{C86B017B-C5BE-4B86-9D1C-84896DAA7147}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		FreeTypeSharp.Shared\FreeTypeSharp.Shared.projitems*{8b03ee04-fcd0-405a-89cf-3274c1e72695}*SharedItemsImports = 13
@@ -63,6 +65,18 @@ Global
 		{A1BB0D95-50CA-4FFF-B5D1-AE16A99FE906}.Release|x64.Build.0 = Release|Any CPU
 		{A1BB0D95-50CA-4FFF-B5D1-AE16A99FE906}.Release|x86.ActiveCfg = Release|Any CPU
 		{A1BB0D95-50CA-4FFF-B5D1-AE16A99FE906}.Release|x86.Build.0 = Release|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Debug|x64.Build.0 = Debug|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Debug|x86.Build.0 = Debug|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Release|x64.ActiveCfg = Release|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Release|x64.Build.0 = Release|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Release|x86.ActiveCfg = Release|Any CPU
+		{C86B017B-C5BE-4B86-9D1C-84896DAA7147}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
