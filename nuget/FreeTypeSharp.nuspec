@@ -28,9 +28,9 @@
     <file src="build\FreeTypeSharp.targets" target="build\net462\FreeTypeSharp.targets" />
     <file src="build\FreeTypeSharp.targets" target="build\netstandard2.0\FreeTypeSharp.targets" />
 
-    <file src="..\Artifacts\Core\Release\netstandard2.0\FreeTypeSharp.dll" target="lib/netstandard2.0" />
-    <file src="..\Artifacts\Android\Release\FreeTypeSharp.dll" target="lib/MonoAndroid10" />
-    <file src="..\Artifacts\iOS\Release\FreeTypeSharp.dll" target="lib/Xamarin.iOS10" />
+    <file src="..\Artifacts\Core\netstandard2.0\FreeTypeSharp.dll" target="lib/netstandard2.0" />
+    <file src="..\Artifacts\Android\FreeTypeSharp.dll" target="lib/MonoAndroid10" />
+    <file src="..\Artifacts\iOS\FreeTypeSharp.dll" target="lib/Xamarin.iOS10" />
 
     <file src="..\Dependencies\FreeType2\windows\x64\freetype.dll" target="runtimes\win-x64\native\freetype.dll" />
     <file src="..\Dependencies\FreeType2\windows\x86\freetype.dll" target="runtimes\win-x86\native\freetype.dll" />

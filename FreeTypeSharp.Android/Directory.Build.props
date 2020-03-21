@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ProjectPlatform>Android</ProjectPlatform>
     <BaseOutputPath>..\Artifacts\$(ProjectPlatform)</BaseOutputPath>
-    <OutputPath>..\Artifacts\$(ProjectPlatform)\$(Configuration)</OutputPath>
+    <OutputPath>..\Artifacts\$(ProjectPlatform)</OutputPath>
     <RootNamespace>FreeTypeSharp</RootNamespace>
     <AssemblyName>FreeTypeSharp</AssemblyName>
 
