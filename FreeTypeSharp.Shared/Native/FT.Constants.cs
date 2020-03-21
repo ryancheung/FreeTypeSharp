@@ -1,6 +1,6 @@
 ﻿namespace FreeTypeSharp.Native
 {
-    public static partial class FT
+    static partial class FT
     {
         // face flags
         public const int FT_FACE_FLAG_SCALABLE = 1 << 0;
