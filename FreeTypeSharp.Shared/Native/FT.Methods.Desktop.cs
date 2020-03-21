@@ -156,7 +156,27 @@ namespace FreeTypeSharp.Native
         #endregion
 
         #region Glyph Variants
-        //TODO:
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate uint __FT_Face_GetCharVariantIndex(IntPtr face, uint charcode, uint variantSelector);
+        public static __FT_Face_GetCharVariantIndex FT_Face_GetCharVariantIndex = LoadFunction<__FT_Face_GetCharVariantIndex>("FT_Face_GetCharVariantIndex");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int __FT_Face_GetCharVariantIsDefault(IntPtr face, uint charcode, uint variantSelector);
+        public static __FT_Face_GetCharVariantIsDefault FT_Face_GetCharVariantIsDefault = LoadFunction<__FT_Face_GetCharVariantIsDefault>("FT_Face_GetCharVariantIsDefault");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_Face_GetVariantSelectors(IntPtr face);
+        public static __FT_Face_GetVariantSelectors FT_Face_GetVariantSelectors = LoadFunction<__FT_Face_GetVariantSelectors>("FT_Face_GetVariantSelectors");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_Face_GetVariantsOfChar(IntPtr face, uint charcode);
+        public static __FT_Face_GetVariantsOfChar FT_Face_GetVariantsOfChar = LoadFunction<__FT_Face_GetVariantsOfChar>("FT_Face_GetVariantsOfChar");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_Face_GetCharsOfVariant(IntPtr face, uint variantSelector);
+        public static __FT_Face_GetCharsOfVariant FT_Face_GetCharsOfVariant = LoadFunction<__FT_Face_GetCharsOfVariant>("FT_Face_GetCharsOfVariant");
+
         #endregion
 
         #region Glyph Management
@@ -188,7 +208,31 @@ namespace FreeTypeSharp.Native
         #endregion
 
         #region Mac Specific Interface - check for macOS before calling these methods.
-        //TODO:
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FT_New_Face_From_FOND(IntPtr library, IntPtr fond, int face_index, out IntPtr aface);
+        public static __FT_New_Face_From_FOND FT_New_Face_From_FOND = LoadFunction<__FT_New_Face_From_FOND>("FT_New_Face_From_FOND");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        public delegate FT_Error __FT_GetFile_From_Mac_Name(string fontName, out IntPtr pathSpec, out int face_index);
+        public static __FT_GetFile_From_Mac_Name FT_GetFile_From_Mac_Name = LoadFunction<__FT_GetFile_From_Mac_Name>("FT_GetFile_From_Mac_Name");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        public delegate FT_Error __FT_GetFile_From_Mac_ATS_Name(string fontName, out IntPtr pathSpec, out int face_index);
+        public static __FT_GetFile_From_Mac_ATS_Name FT_GetFile_From_Mac_ATS_Name = LoadFunction<__FT_GetFile_From_Mac_ATS_Name>("FT_GetFile_From_Mac_ATS_Name");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        public delegate FT_Error __FT_GetFilePath_From_Mac_ATS_Name(string fontName, IntPtr path, int maxPathSize, out int face_index);
+        public static __FT_GetFilePath_From_Mac_ATS_Name FT_GetFilePath_From_Mac_ATS_Name = LoadFunction<__FT_GetFilePath_From_Mac_ATS_Name>("FT_GetFilePath_From_Mac_ATS_Name");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FT_New_Face_From_FSSpec(IntPtr library, IntPtr spec, int face_index, out IntPtr aface);
+        public static __FT_New_Face_From_FSSpec FT_New_Face_From_FSSpec = LoadFunction<__FT_New_Face_From_FSSpec>("FT_New_Face_From_FSSpec");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FT_New_Face_From_FSRef(IntPtr library, IntPtr @ref, int face_index, out IntPtr aface);
+        public static __FT_New_Face_From_FSRef FT_New_Face_From_FSRef = LoadFunction<__FT_New_Face_From_FSRef>("FT_New_Face_From_FSRef");
+
         #endregion
 
         #region Size Management
@@ -212,7 +256,82 @@ namespace FreeTypeSharp.Native
         #region Support API
 
         #region Computations
-        //TODO:
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_MulDiv(IntPtr a, IntPtr b, IntPtr c);
+        public static __FT_MulDiv FT_MulDiv = LoadFunction<__FT_MulDiv>("FT_MulDiv");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_MulFix(IntPtr a, IntPtr b);
+        public static __FT_MulFix FT_MulFix = LoadFunction<__FT_MulFix>("FT_MulFix");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_DivFix(IntPtr a, IntPtr b);
+        public static __FT_DivFix FT_DivFix = LoadFunction<__FT_DivFix>("FT_DivFix");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_RoundFix(IntPtr a);
+        public static __FT_RoundFix FT_RoundFix = LoadFunction<__FT_RoundFix>("FT_RoundFix");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_CeilFix(IntPtr a);
+        public static __FT_CeilFix FT_CeilFix = LoadFunction<__FT_CeilFix>("FT_CeilFix");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_FloorFix(IntPtr a);
+        public static __FT_FloorFix FT_FloorFix = LoadFunction<__FT_FloorFix>("FT_FloorFix");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FT_Vector_Transform(ref FT_Vector vec, ref FT_Matrix matrix);
+        public static __FT_Vector_Transform FT_Vector_Transform = LoadFunction<__FT_Vector_Transform>("FT_Vector_Transform");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FT_Matrix_Multiply(ref FT_Matrix a, ref FT_Matrix b);
+        public static __FT_Matrix_Multiply FT_Matrix_Multiply = LoadFunction<__FT_Matrix_Multiply>("FT_Matrix_Multiply");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FT_Matrix_Invert(ref FT_Matrix matrix);
+        public static __FT_Matrix_Invert FT_Matrix_Invert = LoadFunction<__FT_Matrix_Invert>("FT_Matrix_Invert");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_Sin(IntPtr angle);
+        public static __FT_Sin FT_Sin = LoadFunction<__FT_Sin>("FT_Sin");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_Cos(IntPtr angle);
+        public static __FT_Cos FT_Cos = LoadFunction<__FT_Cos>("FT_Cos");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_Tan(IntPtr angle);
+        public static __FT_Tan FT_Tan = LoadFunction<__FT_Tan>("FT_Tan");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_Atan2(IntPtr x, IntPtr y);
+        public static __FT_Atan2 FT_Atan2 = LoadFunction<__FT_Atan2>("FT_Atan2");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_Angle_Diff(IntPtr angle1, IntPtr angle2);
+        public static __FT_Angle_Diff FT_Angle_Diff = LoadFunction<__FT_Angle_Diff>("FT_Angle_Diff");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FT_Vector_Unit(out FT_Vector vec, IntPtr angle);
+        public static __FT_Vector_Unit FT_Vector_Unit = LoadFunction<__FT_Vector_Unit>("FT_Vector_Unit");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FT_Vector_Rotate(ref FT_Vector vec, IntPtr angle);
+        public static __FT_Vector_Rotate FT_Vector_Rotate = LoadFunction<__FT_Vector_Rotate>("FT_Vector_Rotate");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr __FT_Vector_Length(ref FT_Vector vec);
+        public static __FT_Vector_Length FT_Vector_Length = LoadFunction<__FT_Vector_Length>("FT_Vector_Length");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FT_Vector_Polarize(ref FT_Vector vec, out IntPtr length, out IntPtr angle);
+        public static __FT_Vector_Polarize FT_Vector_Polarize = LoadFunction<__FT_Vector_Polarize>("FT_Vector_Polarize");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FT_Vector_From_Polar(out FT_Vector vec, IntPtr length, IntPtr angle);
+        public static __FT_Vector_From_Polar FT_Vector_From_Polar = LoadFunction<__FT_Vector_From_Polar>("FT_Vector_From_Polar");
         #endregion
 
         #region List Processing
@@ -531,11 +650,111 @@ namespace FreeTypeSharp.Native
         #endregion
 
         #region Caching Sub-system
-        //TODO:
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_Manager_New(IntPtr library, uint max_faces, uint max_sizes, ulong maxBytes, FTC_Face_Requester requester, IntPtr req_data, out IntPtr amanager);
+        public static __FTC_Manager_New FTC_Manager_New = LoadFunction<__FTC_Manager_New>("FTC_Manager_New");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FTC_Manager_Reset(IntPtr manager);
+        public static __FTC_Manager_Reset FTC_Manager_Reset = LoadFunction<__FTC_Manager_Reset>("FTC_Manager_Reset");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FTC_Manager_Done(IntPtr manager);
+        public static __FTC_Manager_Done FTC_Manager_Done = LoadFunction<__FTC_Manager_Done>("FTC_Manager_Done");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_Manager_LookupFace(IntPtr manager, IntPtr face_id, out IntPtr aface);
+        public static __FTC_Manager_LookupFace FTC_Manager_LookupFace = LoadFunction<__FTC_Manager_LookupFace>("FTC_Manager_LookupFace");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_Manager_LookupSize(IntPtr manager, IntPtr scaler, out IntPtr asize);
+        public static __FTC_Manager_LookupSize FTC_Manager_LookupSize = LoadFunction<__FTC_Manager_LookupSize>("FTC_Manager_LookupSize");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FTC_Node_Unref(IntPtr node, IntPtr manager);
+        public static __FTC_Node_Unref FTC_Node_Unref = LoadFunction<__FTC_Node_Unref>("FTC_Node_Unref");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FTC_Manager_RemoveFaceID(IntPtr manager, IntPtr face_id);
+        public static __FTC_Manager_RemoveFaceID FTC_Manager_RemoveFaceID = LoadFunction<__FTC_Manager_RemoveFaceID>("FTC_Manager_RemoveFaceID");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_CMapCache_New(IntPtr manager, out IntPtr acache);
+        public static __FTC_CMapCache_New FTC_CMapCache_New = LoadFunction<__FTC_CMapCache_New>("FTC_CMapCache_New");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate uint __FTC_CMapCache_Lookup(IntPtr cache, IntPtr face_id, int cmap_index, uint char_code);
+        public static __FTC_CMapCache_Lookup FTC_CMapCache_Lookup = LoadFunction<__FTC_CMapCache_Lookup>("FTC_CMapCache_Lookup");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_ImageCache_New(IntPtr manager, out IntPtr acache);
+        public static __FTC_ImageCache_New FTC_ImageCache_New = LoadFunction<__FTC_ImageCache_New>("FTC_ImageCache_New");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_ImageCache_Lookup(IntPtr cache, IntPtr type, uint gindex, out IntPtr aglyph, out IntPtr anode);
+        public static __FTC_ImageCache_Lookup FTC_ImageCache_Lookup = LoadFunction<__FTC_ImageCache_Lookup>("FTC_ImageCache_Lookup");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_ImageCache_LookupScaler(IntPtr cache, IntPtr scaler, uint load_flags, uint gindex, out IntPtr aglyph, out IntPtr anode);
+        public static __FTC_ImageCache_LookupScaler FTC_ImageCache_LookupScaler = LoadFunction<__FTC_ImageCache_LookupScaler>("FTC_ImageCache_LookupScaler");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_SBitCache_New(IntPtr manager, out IntPtr acache);
+        public static __FTC_SBitCache_New FTC_SBitCache_New = LoadFunction<__FTC_SBitCache_New>("FTC_SBitCache_New");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_SBitCache_Lookup(IntPtr cache, IntPtr type, uint gindex, out IntPtr sbit, out IntPtr anode);
+        public static __FTC_SBitCache_Lookup FTC_SBitCache_Lookup = LoadFunction<__FTC_SBitCache_Lookup>("FTC_SBitCache_Lookup");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FTC_SBitCache_LookupScaler(IntPtr cache, IntPtr scaler, uint load_flags, uint gindex, out IntPtr sbit, out IntPtr anode);
+        public static __FTC_SBitCache_LookupScaler FTC_SBitCache_LookupScaler = LoadFunction<__FTC_SBitCache_LookupScaler>("FTC_SBitCache_LookupScaler");
+
         #endregion
 
         #region Miscellaneous
-        //TODO;
+
+        #region OpenType Validation
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FT_OpenType_Validate(IntPtr face, uint validation_flags, out IntPtr base_table, out IntPtr gdef_table, out IntPtr gpos_table, out IntPtr gsub_table, out IntPtr jsft_table);
+        public static __FT_OpenType_Validate FT_OpenType_Validate = LoadFunction<__FT_OpenType_Validate>("FT_OpenType_Validate");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void __FT_OpenType_Free(IntPtr face, IntPtr table);
+        public static __FT_OpenType_Free FT_OpenType_Free = LoadFunction<__FT_OpenType_Free>("FT_OpenType_Free");
+
+        #endregion
+
+        #region The TrueType Engine
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_TrueTypeEngineType __FT_Get_TrueType_Engine_Type(IntPtr library);
+        public static __FT_Get_TrueType_Engine_Type FT_Get_TrueType_Engine_Type = LoadFunction<__FT_Get_TrueType_Engine_Type>("FT_Get_TrueType_Engine_Type");
+
+        #endregion
+
+        #region TrueTypeGX/AAT Validation
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FT_TrueTypeGX_Validate(IntPtr face, uint validation_flags, ref byte[] tables, uint tableLength);
+        public static __FT_TrueTypeGX_Validate FT_TrueTypeGX_Validate = LoadFunction<__FT_TrueTypeGX_Validate>("FT_TrueTypeGX_Validate");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FT_TrueTypeGX_Free(IntPtr face, IntPtr table);
+        public static __FT_TrueTypeGX_Free FT_TrueTypeGX_Free = LoadFunction<__FT_TrueTypeGX_Free>("FT_TrueTypeGX_Free");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FT_ClassicKern_Validate(IntPtr face, uint validation_flags, out IntPtr ckern_table);
+        public static __FT_ClassicKern_Validate FT_ClassicKern_Validate = LoadFunction<__FT_ClassicKern_Validate>("FT_ClassicKern_Validate");
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate FT_Error __FT_ClassicKern_Free(IntPtr face, IntPtr table);
+        public static __FT_ClassicKern_Free FT_ClassicKern_Free = LoadFunction<__FT_ClassicKern_Free>("FT_ClassicKern_Free");
+
+        #endregion
+
         #endregion
 
 #endif
