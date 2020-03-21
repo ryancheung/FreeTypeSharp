@@ -5,9 +5,6 @@ using System.Linq;
 
 namespace FreeTypeSharp
 {
-    /// <summary>
-    /// This was required and works on netstandard2.0 package only.
-    /// </summary>
     public static class NativeLibraryLoader
     {
         const int RTLD_NOW = 2;
