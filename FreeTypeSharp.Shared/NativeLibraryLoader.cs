@@ -119,8 +119,10 @@ namespace FreeTypeSharp
 
         private static IntPtr LoadiOSLibrary(out SymbolLookupDelegate symbolLookup)
         {
+            var handle = dlopen(null, 0);
             symbolLookup = dlsym;
-            return IntPtr.Zero;
+            NativeLibraryPath = "__Internal";
+            return handle;
         }
 
         private static IntPtr LoadPosixLibrary(out SymbolLookupDelegate symbolLookup)
