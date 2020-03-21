@@ -17,17 +17,21 @@
   <ItemGroup>
     <Content Include="..\Dependencies\FreeType2\windows\x86\freetype.dll">
       <Link>runtimes\win-x86\native\freetype.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Dependencies\FreeType2\windows\x64\freetype.dll">
       <Link>runtimes\win-x64\native\freetype.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
 
     <Content Include="..\Dependencies\FreeType2\osx\libfreetype.dylib">
       <Link>runtimes\osx\native\libfreetype.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
 
     <Content Include="..\Dependencies\FreeType2\linux\x64\libfreetype.so">
       <Link>runtimes\linux-x64\native\libfreetype.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

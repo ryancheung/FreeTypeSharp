@@ -1,19 +1,13 @@
-#if NETSTANDARD2_0
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Linq;
-#endif
 
 namespace FreeTypeSharp
 {
-    /// <summary>
-    /// This was required and works on netstandard2.0 package only.
-    /// </summary>
     public static class NativeLibraryLoader
     {
-
-#if NETSTANDARD2_0
+        const int RTLD_NOW = 2;
 
         public static string NativeLibraryPath { get; private set; }
         public delegate IntPtr SymbolLookupDelegate(IntPtr addr, string name);
@@ -38,6 +32,8 @@ namespace FreeTypeSharp
 
         static NativeLibraryLoader()
         {
+
+#if NETSTANDARD2_0
             // Figure out which OS we're on. Windows or "other".
             if (Environment.OSVersion.Platform == PlatformID.Unix ||
                         Environment.OSVersion.Platform == PlatformID.MacOSX ||
@@ -50,6 +46,11 @@ namespace FreeTypeSharp
             {
                 _freetypeAddr = LoadWindowsLibrary(out _symbolLookup);
             }
+#elif __IOS__
+            _freetypeAddr = LoadiOSLibrary(out _symbolLookup);
+#elif ANDROID
+            _freetypeAddr = LoadAndroidLibrary(out _symbolLookup);
+#endif
         }
 
         public static T LoadFunction<T>(string function, bool throwIfNotFound = false)
@@ -98,9 +99,32 @@ namespace FreeTypeSharp
             throw new Exception("LoadLibrary failed: unable to locate library " + libFile + ". Searched: " + paths.Aggregate((a, b) => a + "; " + b));
         }
 
+        private static IntPtr LoadAndroidLibrary(out SymbolLookupDelegate symbolLookup)
+        {
+            var libName = "libfreetype.so";
+            var addr = dlopen(libName, RTLD_NOW);
+
+            if (addr == IntPtr.Zero)
+            {
+                // Not using NanosmgException because it depends on nn_errno.
+                var error = Marshal.PtrToStringAnsi(dlerror());
+                throw new Exception("Android - dlopen failed: " + libName + " : " + error);
+            }
+            symbolLookup = dlsym;
+            NativeLibraryPath = libName;
+            return addr;
+        }
+
+        private static IntPtr LoadiOSLibrary(out SymbolLookupDelegate symbolLookup)
+        {
+            var handle = dlopen(null, 0);
+            symbolLookup = dlsym;
+            NativeLibraryPath = "__Internal";
+            return handle;
+        }
+
         private static IntPtr LoadPosixLibrary(out SymbolLookupDelegate symbolLookup)
         {
-            const int RTLD_NOW = 2;
             string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
             // Environment.OSVersion.Platform returns "Unix" for Unix or OSX, so use RuntimeInformation here
@@ -139,8 +163,6 @@ namespace FreeTypeSharp
 
             throw new Exception("dlopen failed: unable to locate library " + libFile + ". Searched: " + paths.Aggregate((a, b) => a + "; " + b));
         }
-
-#endif
 
     }
 }
