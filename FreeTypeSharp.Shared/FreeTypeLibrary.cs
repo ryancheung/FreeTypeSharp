@@ -1,6 +1,5 @@
 ﻿using System;
-using static FreeTypeSharp.Native.FT;
-using static FreeTypeSharp.Native.FT_Error;
+using FreeTypeSharp.Native;
 
 namespace FreeTypeSharp
 {
@@ -24,8 +23,9 @@ namespace FreeTypeSharp
         /// </summary>
         public FreeTypeLibrary()
         {
-            var err = FT_Init_FreeType(out var lib);
-            if (err != FT_Err_Ok)
+            IntPtr lib;
+            var err = FT.FT_Init_FreeType(out lib);
+            if (err != FT_Error.FT_Err_Ok)
                 throw new FreeTypeException(err);
 
             Native = lib;
@@ -47,8 +47,8 @@ namespace FreeTypeSharp
         {
             if (Native != IntPtr.Zero)
             {
-                var err = FT_Done_FreeType(Native);
-                if (err != FT_Err_Ok)
+                var err = FT.FT_Done_FreeType(Native);
+                if (err != FT_Error.FT_Err_Ok)
                     throw new FreeTypeException(err);
 
                 Native = IntPtr.Zero;
