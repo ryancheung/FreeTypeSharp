@@ -16,20 +16,30 @@ namespace FreeTypeSharp
         private static IntPtr _freetypeAddr;
         private static SymbolLookupDelegate _symbolLookup;
 
+#if !__IOS__
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
         private static extern IntPtr LoadLibrary(string lpFileName);
+#endif
 
+#if !__IOS__
         [DllImport("kernel32.dll")]
         private static extern IntPtr GetProcAddress(IntPtr hModule, string procname);
+#endif
 
+#if !__IOS__
         [DllImport("libdl")]
         private static extern IntPtr dlopen(string fileName, int flags);
+#endif
 
+#if !__IOS__
         [DllImport("libdl")]
         private static extern IntPtr dlerror();
+#endif
 
+#if !__IOS__
         [DllImport("libdl")]
         private static extern IntPtr dlsym(IntPtr handle, string symbol);
+#endif
 
         static NativeLibraryLoader()
         {
@@ -77,6 +87,7 @@ namespace FreeTypeSharp
             return Marshal.GetDelegateForFunctionPointer<T>(ret);
         }
 
+#if NETSTANDARD2_0
         private static IntPtr LoadWindowsLibrary(out SymbolLookupDelegate symbolLookup)
         {
             string libFile = "freetype.dll";
@@ -107,7 +118,9 @@ namespace FreeTypeSharp
 
             throw new Exception("LoadLibrary failed: unable to locate library " + libFile + ". Searched: " + paths.Aggregate((a, b) => a + "; " + b));
         }
+#endif
 
+#if ANDROID
         private static IntPtr LoadAndroidLibrary(out SymbolLookupDelegate symbolLookup)
         {
             var libName = "libfreetype.so";
@@ -123,6 +136,7 @@ namespace FreeTypeSharp
             NativeLibraryPath = libName;
             return addr;
         }
+#endif
 
         private static IntPtr LoadiOSLibrary(out SymbolLookupDelegate symbolLookup)
         {
@@ -131,6 +145,7 @@ namespace FreeTypeSharp
             return IntPtr.Zero;
         }
 
+#if NETSTANDARD2_0
         private static IntPtr LoadPosixLibrary(out SymbolLookupDelegate symbolLookup)
         {
             string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -171,6 +186,7 @@ namespace FreeTypeSharp
 
             throw new Exception("dlopen failed: unable to locate library " + libFile + ". Searched: " + paths.Aggregate((a, b) => a + "; " + b));
         }
+#endif
 
     }
 }
