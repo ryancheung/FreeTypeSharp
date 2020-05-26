@@ -64,18 +64,21 @@ namespace FreeTypeSharp
 #endif
         }
 
-        public static T LoadFunction<T>(string function, bool throwIfNotFound = false)
+        public static T LoadFunction<T>(string function, bool throwIfNotFound = false) where T : class
         {
 #if __IOS__
             var methodInfo = typeof(Native.FT_DllImport).GetMethod(function, BindingFlags.Static | BindingFlags.Public);
-            IntPtr ret;
             if (methodInfo == null)
-                ret = IntPtr.Zero;
-            else
-                ret = methodInfo.MethodHandle.GetFunctionPointer();
+            {
+                if (throwIfNotFound)
+                    throw new EntryPointNotFoundException(function);
+
+                return default(T);
+            }
+
+            return methodInfo.CreateDelegate(typeof(T)) as T;
 #else
             var ret = _symbolLookup(_freetypeAddr, function);
-#endif
             if (ret == IntPtr.Zero)
             {
                 if (throwIfNotFound)
@@ -85,6 +88,7 @@ namespace FreeTypeSharp
             }
 
             return Marshal.GetDelegateForFunctionPointer<T>(ret);
+#endif
         }
 
 #if NETSTANDARD2_0
