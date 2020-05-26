@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Linq;
+using System.Reflection;
 
 namespace FreeTypeSharp
 {
@@ -55,8 +56,16 @@ namespace FreeTypeSharp
 
         public static T LoadFunction<T>(string function, bool throwIfNotFound = false)
         {
+#if __IOS__
+            var methodInfo = typeof(Native.FT_DllImport).GetMethod(function, BindingFlags.Static | BindingFlags.Public);
+            IntPtr ret;
+            if (methodInfo == null)
+                ret = IntPtr.Zero;
+            else
+                ret = methodInfo.MethodHandle.GetFunctionPointer();
+#else
             var ret = _symbolLookup(_freetypeAddr, function);
-
+#endif
             if (ret == IntPtr.Zero)
             {
                 if (throwIfNotFound)
@@ -117,10 +126,9 @@ namespace FreeTypeSharp
 
         private static IntPtr LoadiOSLibrary(out SymbolLookupDelegate symbolLookup)
         {
-            var handle = dlopen(null, 0);
-            symbolLookup = dlsym;
+            symbolLookup = null;
             NativeLibraryPath = "__Internal";
-            return handle;
+            return IntPtr.Zero;
         }
 
         private static IntPtr LoadPosixLibrary(out SymbolLookupDelegate symbolLookup)

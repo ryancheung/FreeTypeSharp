@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Memory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeLibraryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT.Methods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\FT.Methods.DllImport.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT.Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT_BBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Native\FT_Bitmap_Size.cs" />
