@@ -6,7 +6,6 @@ namespace FreeTypeSharp
     /// <summary>
     /// Represents an exception thrown as a result of a FreeType2 API error.
     /// </summary>
-    [Serializable]
     public sealed class FreeTypeException : Exception
     {
         /// <summary>

@@ -1,6 +1,6 @@
 <Project>
 
-  <Target Name="CopyDesktopNativeLibs" AfterTargets="AfterBuild" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' Or '$(TargetFrameworkIdentifier)' == '.NETStandard'">
+  <Target Name="CopyDesktopNativeLibs" AfterTargets="AfterBuild" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
     <ItemGroup>
       <_lib_winx64 Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-x64\native\*.*" />
       <_lib_winx86 Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-x86\native\*.*" />

@@ -16,27 +16,32 @@ namespace FreeTypeSharp
         private static IntPtr _freetypeAddr;
         private static SymbolLookupDelegate _symbolLookup;
 
-#if !__IOS__
+#if !__IOS__ && !WINDOWS_UAP
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
         private static extern IntPtr LoadLibrary(string lpFileName);
 #endif
 
-#if !__IOS__
+#if WINDOWS_UAP
+        [DllImport("kernel32", CallingConvention = CallingConvention.Cdecl, EntryPoint = "LoadPackagedLibrary")]
+        private static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPWStr)] string libFileName, int reserved = 0);
+#endif
+
+#if !__IOS__ || WINDOWS_UAP
         [DllImport("kernel32.dll")]
         private static extern IntPtr GetProcAddress(IntPtr hModule, string procname);
 #endif
 
-#if !__IOS__
+#if !__IOS__ && !WINDOWS_UAP
         [DllImport("libdl")]
         private static extern IntPtr dlopen(string fileName, int flags);
 #endif
 
-#if !__IOS__
+#if !__IOS__  && !WINDOWS_UAP
         [DllImport("libdl")]
         private static extern IntPtr dlerror();
 #endif
 
-#if !__IOS__
+#if !__IOS__  && !WINDOWS_UAP
         [DllImport("libdl")]
         private static extern IntPtr dlsym(IntPtr handle, string symbol);
 #endif
@@ -57,6 +62,8 @@ namespace FreeTypeSharp
             {
                 _freetypeAddr = LoadWindowsLibrary(out _symbolLookup);
             }
+#elif WINDOWS_UAP
+            _freetypeAddr = LoadWindowsUniversalLibrary(out _symbolLookup);
 #elif __IOS__
             _freetypeAddr = LoadiOSLibrary(out _symbolLookup);
 #elif ANDROID
@@ -82,7 +89,13 @@ namespace FreeTypeSharp
             if (ret == IntPtr.Zero)
             {
                 if (throwIfNotFound)
+                {
+#if WINDOWS_UAP
+                    throw new Exception(string.Format("function {0} not found!", function));
+#else
                     throw new EntryPointNotFoundException(function);
+#endif
+                }
 
                 return default(T);
             }
@@ -121,6 +134,20 @@ namespace FreeTypeSharp
             }
 
             throw new Exception("LoadLibrary failed: unable to locate library " + libFile + ". Searched: " + paths.Aggregate((a, b) => a + "; " + b));
+        }
+#endif
+
+#if WINDOWS_UAP
+        private static IntPtr LoadWindowsUniversalLibrary(out SymbolLookupDelegate symbolLookup)
+        {
+            var addr = LoadLibrary("freetype.dll");
+
+            if (addr == IntPtr.Zero)
+                throw new Exception("LoadPackagedLibrary failed: freetype.dll");
+
+            symbolLookup = GetProcAddress;
+            NativeLibraryPath = ".";
+            return addr;
         }
 #endif
 
