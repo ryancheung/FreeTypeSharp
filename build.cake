@@ -75,6 +75,7 @@ Task("Prep")
     msBuildSettings = new MSBuildSettings();
     msBuildSettings.Verbosity = Verbosity.Minimal;
     msBuildSettings.Configuration = configuration;
+    msBuildSettings.Restore = true;
     msBuildSettings.WithProperty("Version", version);
 });
 
@@ -82,7 +83,6 @@ Task("BuildCore")
     .IsDependentOn("Prep")
     .Does(() =>
 {
-    DotNetCoreRestore("FreeTypeSharp.Core/FreeTypeSharp.Core.csproj");
     BuildProject("FreeTypeSharp.Core/FreeTypeSharp.Core.csproj");
 });
 
@@ -96,7 +96,6 @@ Task("BuildAndroid")
     return DirectoryExists("/Library/Frameworks/Xamarin.Android.framework");
 }).Does(() =>
 {
-    DotNetCoreRestore("FreeTypeSharp.Android/FreeTypeSharp.Android.csproj");
     BuildProject("FreeTypeSharp.Android/FreeTypeSharp.Android.csproj");
 });
 
@@ -107,18 +106,27 @@ Task("BuildiOS")
     return DirectoryExists("/Library/Frameworks/Xamarin.iOS.framework");
 }).Does(() =>
 {
-    DotNetCoreRestore("FreeTypeSharp.iOS/FreeTypeSharp.iOS.csproj");
     BuildProject("FreeTypeSharp.iOS/FreeTypeSharp.iOS.csproj");
+});
+
+Task("BuildUWP")
+    .IsDependentOn("Prep")
+    .WithCriteria(() => GetMSBuildWith("Microsoft.VisualStudio.Component.Windows10SDK.17763"))
+    .Does(() =>
+{
+    BuildProject("FreeTypeSharp.UWP/FreeTypeSharp.UWP.csproj");
 });
 
 Task("Default")
     .IsDependentOn("BuildCore")
     .IsDependentOn("BuildAndroid")
+    .IsDependentOn("BuildUWP")
     .IsDependentOn("BuildiOS");
 
 Task("Pack")
     .IsDependentOn("BuildCore")
     .IsDependentOn("BuildAndroid")
+    .IsDependentOn("BuildUWP")
     .IsDependentOn("BuildiOS")
 .Does(() =>
 {

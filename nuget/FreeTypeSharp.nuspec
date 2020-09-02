@@ -12,7 +12,7 @@
     <description>A moden cross-platform managed FreeType2 library.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2020 ryancheung</copyright>
-    <tags>freetype2 netstandard2.0 xamarin.ios xamarin.android</tags>
+    <tags>freetype2 netstandard2.0 xamarin.ios xamarin.android uap</tags>
 
     <dependencies>
       <group targetFramework="netstandard2.0">
@@ -21,19 +21,27 @@
       </group>
       <group targetFramework="Xamarin.iOS10">
       </group>
+      <group targetFramework="uap10.0">
+      </group>
     </dependencies>
   </metadata>
   
   <files>
     <file src="build\FreeTypeSharp.targets" target="build\net462\FreeTypeSharp.targets" />
-    <file src="build\FreeTypeSharp.targets" target="build\netstandard2.0\FreeTypeSharp.targets" />
 
     <file src="..\Artifacts\Core\netstandard2.0\FreeTypeSharp.dll" target="lib/netstandard2.0" />
     <file src="..\Artifacts\Android\FreeTypeSharp.dll" target="lib/MonoAndroid10" />
     <file src="..\Artifacts\iOS\FreeTypeSharp.dll" target="lib/Xamarin.iOS10" />
+    <file src="..\Artifacts\UWP\FreeTypeSharp.dll" target="lib/uap10.0" />
+    <file src="..\Artifacts\UWP\FreeTypeSharp.pri" target="lib/uap10.0" />
 
     <file src="..\Dependencies\FreeType2\windows\x64\freetype.dll" target="runtimes\win-x64\native\freetype.dll" />
     <file src="..\Dependencies\FreeType2\windows\x86\freetype.dll" target="runtimes\win-x86\native\freetype.dll" />
+
+    <file src="..\Dependencies\FreeType2\uwp\x64\freetype.dll" target="runtimes\win10-x64\native\freetype.dll" />
+    <file src="..\Dependencies\FreeType2\uwp\x86\freetype.dll" target="runtimes\win10-x86\native\freetype.dll" />
+    <file src="..\Dependencies\FreeType2\uwp\arm64\freetype.dll" target="runtimes\win10-arm64\native\freetype.dll" />
+    <file src="..\Dependencies\FreeType2\uwp\arm\freetype.dll" target="runtimes\win10-arm\native\freetype.dll" />
 
     <file src="..\Dependencies\FreeType2\osx\libfreetype.dylib" target="runtimes\osx\native\libfreetype.dylib" />
 

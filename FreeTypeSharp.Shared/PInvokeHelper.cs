@@ -16,7 +16,7 @@ namespace FreeTypeSharp
 		/// <returns>A marshalled struct.</returns>
 		public static T PtrToStructure<T>(IntPtr reference)
 		{
-			return (T)Marshal.PtrToStructure(reference, typeof(T));
+			return Marshal.PtrToStructure<T>(reference);
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace FreeTypeSharp
 		/// <returns><code>start</code> + the offset of the <code>fieldName</code> field in <code>T</code>.</returns>
 		public static IntPtr AbsoluteOffsetOf<T>(IntPtr start, string fieldName)
 		{
-			return new IntPtr(start.ToInt64() + Marshal.OffsetOf(typeof(T), fieldName).ToInt64());
+			return new IntPtr(start.ToInt64() + Marshal.OffsetOf<T>(fieldName).ToInt64());
 		}
 	}
 }
