@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-windows10.0.19041.0</TargetFrameworks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>FreeTypeSharp</RootNamespace>
+    <AssemblyName>FreeTypeSharp</AssemblyName>
+    <IsBindingProject>true</IsBindingProject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.19041.0'">
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <Content Include="..\Dependencies\FreeType2\windows\x86\freetype.dll">
+      <Link>runtimes\win-x86\native\freetype.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="..\Dependencies\FreeType2\windows\x64\freetype.dll">
+      <Link>runtimes\win-x64\native\freetype.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="..\Dependencies\FreeType2\osx\libfreetype.dylib">
+      <Link>runtimes\osx\native\libfreetype.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="..\Dependencies\FreeType2\linux\x64\libfreetype.so">
+      <Link>runtimes\linux-x64\native\libfreetype.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+    <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\arm64-v8a\libfreetype.so" Link="libs\arm64-v8a\libfreetype.so" />
+    <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\armeabi-v7a\libfreetype.so" Link="libs\armeabi-v7a\libfreetype.so" />
+    <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\x86\libfreetype.so" Link="libs\x86\libfreetype.so" />
+    <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\x86_64\libfreetype.so" Link="libs\x86_64\libfreetype.so" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
+    <NativeReference Include="..\Dependencies\FreeType2\ios\libfreetype.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+      <LinkerFlags>-lbz2</LinkerFlags>
+    </NativeReference>
+
+    <Compile Remove="iOS\ApiDefinition.cs" />
+    <Compile Remove="iOS\StructsAndEnums.cs" />
+    <ObjcBindingApiDefinition Include="iOS\ApiDefinition.cs" />
+    <ObjcBindingCoreSource Include="iOS\StructsAndEnums.cs" />
+  </ItemGroup>
+</Project>
