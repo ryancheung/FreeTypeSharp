@@ -11,29 +11,27 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A moden cross-platform managed FreeType2 library.</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2020 ryancheung</copyright>
-    <tags>freetype2 netstandard2.0 xamarin.ios xamarin.android uap</tags>
+    <copyright>Copyright 2021 ryancheung</copyright>
+    <tags>freetype2 net6 net6-android net6-ios net6-windows10</tags>
 
     <dependencies>
-      <group targetFramework="netstandard2.0">
+      <group targetFramework="net6.0">
       </group>
-      <group targetFramework="MonoAndroid10">
+      <group targetFramework="net6.0-android30.0">
       </group>
-      <group targetFramework="Xamarin.iOS10">
+      <group targetFramework="net6.0-ios13.6">
       </group>
-      <group targetFramework="uap10.0">
+      <group targetFramework="net6.0-windows10.0.19041.0">
       </group>
     </dependencies>
   </metadata>
   
   <files>
-    <file src="build\FreeTypeSharp.targets" target="build\net462\FreeTypeSharp.targets" />
-
-    <file src="..\Artifacts\Core\netstandard2.0\FreeTypeSharp.dll" target="lib/netstandard2.0" />
-    <file src="..\Artifacts\Android\FreeTypeSharp.dll" target="lib/MonoAndroid10" />
-    <file src="..\Artifacts\iOS\FreeTypeSharp.dll" target="lib/Xamarin.iOS10" />
-    <file src="..\Artifacts\UWP\FreeTypeSharp.dll" target="lib/uap10.0" />
-    <file src="..\Artifacts\UWP\FreeTypeSharp.pri" target="lib/uap10.0" />
+    <file src="..\FreeTypeSharp\bin\Release\net6.0\FreeTypeSharp.dll" target="lib/net6.0" />
+    <file src="..\FreeTypeSharp\bin\Release\net6.0-android\FreeTypeSharp.dll" target="lib/net6.0-android30.0" />
+    <file src="..\FreeTypeSharp\bin\Release\net6.0-android\FreeTypeSharp.aar" target="lib/net6.0-android30.0" />
+    <file src="..\FreeTypeSharp\bin\Release\net6.0-ios\FreeTypeSharp.dll" target="lib/net6.0-ios13.6" />
+    <file src="..\FreeTypeSharp\bin\Release\net6.0-windows10.0.19041.0\FreeTypeSharp.dll" target="lib/net6.0-windows10.0.19041.0" />
 
     <file src="..\Dependencies\FreeType2\windows\x64\freetype.dll" target="runtimes\win-x64\native\freetype.dll" />
     <file src="..\Dependencies\FreeType2\windows\x86\freetype.dll" target="runtimes\win-x86\native\freetype.dll" />

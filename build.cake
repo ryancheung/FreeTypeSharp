@@ -13,31 +13,11 @@ var apiKey = Argument("api-key", "");
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
 
-MSBuildSettings msBuildSettings;
+DotNetCoreBuildSettings settings;
 
 private void BuildProject(string filePath)
 {
-    MSBuild(filePath, msBuildSettings);
-}
-
-private bool GetMSBuildWith(string requires)
-{
-    if (IsRunningOnWindows())
-    {
-        DirectoryPath vsLatest = VSWhereLatest(new VSWhereLatestSettings { Requires = requires });
-
-        if (vsLatest != null)
-        {
-            var files = GetFiles(vsLatest.FullPath + "/**/MSBuild.exe");
-            if (files.Any())
-            {
-                msBuildSettings.ToolPath = files.First();
-                return true;
-            }
-        }
-    }
-
-    return false;
+    DotNetCoreBuild(filePath, settings);
 }
 
 var NuGetToolPath = Context.Tools.Resolve ("nuget.exe");
@@ -72,62 +52,59 @@ Task("Prep")
 {
     Console.WriteLine("Build Version: {0}", version);
 
-    msBuildSettings = new MSBuildSettings();
-    msBuildSettings.Verbosity = Verbosity.Minimal;
-    msBuildSettings.Configuration = configuration;
-    msBuildSettings.Restore = true;
-    msBuildSettings.WithProperty("Version", version);
+    settings = new DotNetCoreBuildSettings
+    {
+        Configuration = configuration,
+        MSBuildSettings = new DotNetCoreMSBuildSettings()
+            .SetVersion(version)
+    };
 });
 
-Task("BuildCore")
+Task("BuildNET6.0")
     .IsDependentOn("Prep")
     .Does(() =>
 {
-    BuildProject("FreeTypeSharp.Core/FreeTypeSharp.Core.csproj");
+    settings.Framework = "net6.0";
+    BuildProject("FreeTypeSharp/FreeTypeSharp.csproj");
 });
 
 Task("BuildAndroid")
     .IsDependentOn("Prep")
-    .WithCriteria(() =>
+    .Does(() =>
 {
-    if (IsRunningOnWindows())
-        return GetMSBuildWith("Component.Xamarin");
-
-    return DirectoryExists("/Library/Frameworks/Xamarin.Android.framework");
-}).Does(() =>
-{
-    BuildProject("FreeTypeSharp.Android/FreeTypeSharp.Android.csproj");
+    settings.Framework = "net6.0-android";
+    BuildProject("FreeTypeSharp/FreeTypeSharp.csproj");
 });
 
 Task("BuildiOS")
     .IsDependentOn("Prep")
-    .WithCriteria(() =>
+    .WithCriteria(() => Context.Environment.Platform.IsOSX(), "Not on macOS.")
+    .Does(() =>
 {
-    return DirectoryExists("/Library/Frameworks/Xamarin.iOS.framework");
-}).Does(() =>
-{
-    BuildProject("FreeTypeSharp.iOS/FreeTypeSharp.iOS.csproj");
+    settings.Framework = "net6.0-ios";
+    BuildProject("FreeTypeSharp/FreeTypeSharp.csproj");
 });
 
 Task("BuildUWP")
     .IsDependentOn("Prep")
-    .WithCriteria(() => GetMSBuildWith("Microsoft.VisualStudio.Component.Windows10SDK.17763"))
+    .WithCriteria(() => Context.Environment.Platform.IsWindows(), "Not on Windows.")
     .Does(() =>
 {
-    BuildProject("FreeTypeSharp.UWP/FreeTypeSharp.UWP.csproj");
+    settings.Framework = "net6.0-windows10.0.19041.0";
+    BuildProject("FreeTypeSharp/FreeTypeSharp.Uwp.csproj");
 });
 
 Task("Default")
-    .IsDependentOn("BuildCore")
+    .IsDependentOn("BuildNET6.0")
     .IsDependentOn("BuildAndroid")
-    .IsDependentOn("BuildUWP")
-    .IsDependentOn("BuildiOS");
+    .IsDependentOn("BuildiOS")
+    .IsDependentOn("BuildUWP");
 
 Task("Pack")
-    .IsDependentOn("BuildCore")
+    .IsDependentOn("BuildNET6.0")
     .IsDependentOn("BuildAndroid")
-    .IsDependentOn("BuildUWP")
     .IsDependentOn("BuildiOS")
+    .IsDependentOn("BuildUWP")
 .Does(() =>
 {
     PackageNuGet(NuGetSpecFile, "Artifacts");
