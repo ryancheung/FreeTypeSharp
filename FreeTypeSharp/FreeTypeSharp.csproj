@@ -1,14 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net6.0-android;net6.0-ios;</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RootNamespace>FreeTypeSharp</RootNamespace>
     <AssemblyName>FreeTypeSharp</AssemblyName>
     <IsBindingProject>true</IsBindingProject>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.19041.0'">
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
