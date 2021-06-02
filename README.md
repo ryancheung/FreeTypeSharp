@@ -1,5 +1,4 @@
 # FreeTypeSharp
-![Build status](https://github.com/ryancheung/FreeTypeSharp/workflows/.NET%20Core/badge.svg)
 [![Nuget](https://img.shields.io/nuget/v/FreeTypeSharp)](https://www.nuget.org/packages/FreeTypeSharp/)
 
 A moden managed FreeType2 library based on the freetype2 code in the [ultraviolet](https://github.com/tlgkccampbell/ultraviolet/tree/develop/Source/Ultraviolet.FreeType2) project.
