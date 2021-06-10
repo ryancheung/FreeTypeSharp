@@ -76,9 +76,8 @@
       <LinkerFlags>-lbz2</LinkerFlags>
     </NativeReference>
 
-    <Compile Remove="iOS\ApiDefinition.cs" />
-    <Compile Remove="iOS\StructsAndEnums.cs" />
     <ObjcBindingApiDefinition Include="iOS\ApiDefinition.cs" />
-    <ObjcBindingCoreSource Include="iOS\StructsAndEnums.cs" />
+    <ObjcBindingCoreSource Include="*.cs" />
+    <ObjcBindingCoreSource Include="Native\*.cs" />
   </ItemGroup>
 </Project>
