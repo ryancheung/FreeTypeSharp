@@ -375,5 +375,5 @@ Temporary Items
 .vscode
 
 # Cake
-tools/**
-!tools/packages.config
+.cake
+

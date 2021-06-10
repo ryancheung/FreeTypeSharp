@@ -1,11 +1,11 @@
-#tool nuget:?package=vswhere&version=2.6.7
+#tool nuget:?package=vswhere&version=2.8.4
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
 
 var target = Argument("build-target", "Default");
-var version = Argument("build-version", EnvironmentVariable("BUILD_NUMBER") ?? "0.0.0.0");
+var version = Argument("build-version", EnvironmentVariable("BUILD_NUMBER") ?? "2.0.0.1");
 var configuration = Argument("build-configuration", "Release");
 var apiKey = Argument("api-key", "");
 
@@ -13,11 +13,38 @@ var apiKey = Argument("api-key", "");
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
 
-DotNetCoreBuildSettings settings;
+MSBuildSettings msBuildSettings;
+DotNetCoreMSBuildSettings dnMSBuildSettings;
+DotNetCoreBuildSettings dnBuildSettings;
 
-private void BuildProject(string filePath)
+private void BuildMSBuild(string filePath)
 {
-    DotNetCoreBuild(filePath, settings);
+    MSBuild(filePath, msBuildSettings);
+}
+
+private void BuildDotnet(string filePath)
+{
+    DotNetCoreBuild(filePath, dnBuildSettings);
+}
+
+private bool GetMSBuildWith(string requires)
+{
+    if (IsRunningOnWindows())
+    {
+        DirectoryPath vsLatest = VSWhereLatest(new VSWhereLatestSettings { Requires = requires, IncludePrerelease = true });
+
+        if (vsLatest != null)
+        {
+            var files = GetFiles(vsLatest.FullPath + "/**/MSBuild.exe");
+            if (files.Any())
+            {
+                msBuildSettings.ToolPath = files.First();
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 var NuGetToolPath = Context.Tools.Resolve ("nuget.exe");
@@ -52,28 +79,35 @@ Task("Prep")
 {
     Console.WriteLine("Build Version: {0}", version);
 
-    settings = new DotNetCoreBuildSettings
-    {
-        Configuration = configuration,
-        MSBuildSettings = new DotNetCoreMSBuildSettings()
-            .SetVersion(version)
-    };
+    msBuildSettings = new MSBuildSettings();
+    msBuildSettings.Verbosity = Verbosity.Minimal;
+    msBuildSettings.Configuration = configuration;
+    msBuildSettings.Restore = true;
+    msBuildSettings.WithProperty("Version", version);
+
+    dnMSBuildSettings = new DotNetCoreMSBuildSettings();
+    dnMSBuildSettings.WithProperty("Version", version);
+
+    dnBuildSettings = new DotNetCoreBuildSettings();
+    dnBuildSettings.Verbosity = DotNetCoreVerbosity.Minimal;
+    dnBuildSettings.Configuration = configuration;
+    dnBuildSettings.MSBuildSettings = dnMSBuildSettings;
 });
 
 Task("BuildNET6.0")
     .IsDependentOn("Prep")
     .Does(() =>
 {
-    settings.Framework = "net6.0";
-    BuildProject("FreeTypeSharp/FreeTypeSharp.csproj");
+    dnBuildSettings.Framework = "net6.0";
+    BuildDotnet("FreeTypeSharp/FreeTypeSharp.csproj");
 });
 
 Task("BuildAndroid")
     .IsDependentOn("Prep")
     .Does(() =>
 {
-    settings.Framework = "net6.0-android";
-    BuildProject("FreeTypeSharp/FreeTypeSharp.csproj");
+    dnBuildSettings.Framework = "net6.0-android";
+    BuildDotnet("FreeTypeSharp/FreeTypeSharp.csproj");
 });
 
 Task("BuildiOS")
@@ -81,8 +115,8 @@ Task("BuildiOS")
     .WithCriteria(() => Context.Environment.Platform.IsOSX(), "Not on macOS.")
     .Does(() =>
 {
-    settings.Framework = "net6.0-ios";
-    BuildProject("FreeTypeSharp/FreeTypeSharp.csproj");
+    dnBuildSettings.Framework = "net6.0-ios";
+    BuildDotnet("FreeTypeSharp/FreeTypeSharp.csproj");
 });
 
 Task("BuildUWP")
@@ -90,21 +124,28 @@ Task("BuildUWP")
     .WithCriteria(() => Context.Environment.Platform.IsWindows(), "Not on Windows.")
     .Does(() =>
 {
-    settings.Framework = "net6.0-windows10.0.19041.0";
-    BuildProject("FreeTypeSharp/FreeTypeSharp.Uwp.csproj");
+    dnBuildSettings.Framework = "net5.0-windows10.0.19041.0";
+    BuildDotnet("FreeTypeSharp/FreeTypeSharp.csproj");
+});
+
+Task("BuildAll")
+    .IsDependentOn("Prep")
+    .WithCriteria(() =>
+{
+    if (!IsRunningOnWindows())
+        return false;
+
+    return GetMSBuildWith("Microsoft.VisualStudio.Component.Windows10SDK.17763");
+}).Does(() =>
+{
+    BuildMSBuild("FreeTypeSharp/FreeTypeSharp.csproj");
 });
 
 Task("Default")
-    .IsDependentOn("BuildNET6.0")
-    .IsDependentOn("BuildAndroid")
-    .IsDependentOn("BuildiOS")
-    .IsDependentOn("BuildUWP");
+    .IsDependentOn("BuildAll");
 
 Task("Pack")
-    .IsDependentOn("BuildNET6.0")
-    .IsDependentOn("BuildAndroid")
-    .IsDependentOn("BuildiOS")
-    .IsDependentOn("BuildUWP")
+    .IsDependentOn("BuildAll")
 .Does(() =>
 {
     PackageNuGet(NuGetSpecFile, "Artifacts");

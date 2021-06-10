@@ -27,11 +27,11 @@
   </metadata>
   
   <files>
-    <file src="..\FreeTypeSharp\bin\Release\net6.0\FreeTypeSharp.dll" target="lib/net6.0" />
-    <file src="..\FreeTypeSharp\bin\Release\net6.0-android\FreeTypeSharp.dll" target="lib/net6.0-android30.0" />
-    <file src="..\FreeTypeSharp\bin\Release\net6.0-android\FreeTypeSharp.aar" target="lib/net6.0-android30.0" />
-    <file src="..\FreeTypeSharp\bin\Release\net6.0-ios\FreeTypeSharp.dll" target="lib/net6.0-ios13.6" />
-    <file src="..\FreeTypeSharp\bin\Release\net6.0-windows10.0.19041.0\FreeTypeSharp.dll" target="lib/net6.0-windows10.0.19041.0" />
+    <file src="..\Artifacts\Release\net6.0\FreeTypeSharp.dll" target="lib/net6.0" />
+    <file src="..\Artifacts\Release\net6.0-android\FreeTypeSharp.dll" target="lib/net6.0-android30.0" />
+    <file src="..\Artifacts\Release\net6.0-android\FreeTypeSharp.aar" target="lib/net6.0-android30.0" />
+    <file src="..\Artifacts\Release\net6.0-ios\FreeTypeSharp.dll" target="lib/net6.0-ios13.6" />
+    <file src="..\Artifacts\Release\net5.0-windows10.0.19041.0\FreeTypeSharp.dll" target="lib/net5.0-windows10.0.19041.0" />
 
     <file src="..\Dependencies\FreeType2\windows\x64\freetype.dll" target="runtimes\win-x64\native\freetype.dll" />
     <file src="..\Dependencies\FreeType2\windows\x86\freetype.dll" target="runtimes\win-x86\native\freetype.dll" />

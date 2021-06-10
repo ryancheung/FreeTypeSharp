@@ -1,9 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net6.0-android;net6.0-ios;</TargetFrameworks>
+    <TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net5.0-windows10.0.19041.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RootNamespace>FreeTypeSharp</RootNamespace>
     <AssemblyName>FreeTypeSharp</AssemblyName>
+    <BaseOutputPath>..\Artifacts</BaseOutputPath>
+
+    <Description>A moden cross-platform managed FreeType2 library.</Description>
+    <PackageTags>freetype2;.net6.0;</PackageTags>
+    <PackageId>FreeTypeSharp</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0-windows10.0.19041.0'">
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
     <IsBindingProject>true</IsBindingProject>
   </PropertyGroup>
 
@@ -25,6 +37,18 @@
 
     <Content Include="..\Dependencies\FreeType2\linux\x64\libfreetype.so">
       <Link>runtimes\linux-x64\native\libfreetype.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows10.0.19041.0'">
+    <Content Include="..\Dependencies\FreeType2\uwp\x86\freetype.dll">
+      <Link>runtimes\win10-x86\native\freetype.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="..\Dependencies\FreeType2\uwp\x64\freetype.dll">
+      <Link>runtimes\win10-x64\native\freetype.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
