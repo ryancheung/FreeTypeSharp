@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('osx'))">
-    <TargetFrameworks>net6.0-ios</TargetFrameworks>
+    <TargetFrameworks>net6.0;net6.0-android;net6.0-ios</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
