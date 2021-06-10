@@ -21,7 +21,7 @@
       </group>
       <group targetFramework="net6.0-ios13.6">
       </group>
-      <group targetFramework="net6.0-windows10.0.19041.0">
+      <group targetFramework="net5.0-windows10.0.19041.0">
       </group>
     </dependencies>
   </metadata>
