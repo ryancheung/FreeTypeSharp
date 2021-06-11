@@ -9,5 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/app_text"
+        android:id="@+id/textView1"
     />
 </RelativeLayout>

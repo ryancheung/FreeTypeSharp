@@ -18,9 +18,11 @@ namespace FreeTypeSharp.Android.Test
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
+            var textView1 =  FindViewById<TextView>(Resource.Id.textView1);
+
             var library = new FreeTypeLibrary();
             FT_Library_Version(library.Native, out var major, out var minor, out var patch);
-            Console.WriteLine($"FreeType version: {major}.{minor}.{patch}");
+            textView1.Text = $"FreeType version: {major}.{minor}.{patch}";
         }
     }
 }
