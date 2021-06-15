@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows'))">
-    <TargetFrameworks >net6.0;net6.0-android;net5.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>net5.0;net6.0;net6.0-android;net5.0-windows10.0.19041.0</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('osx'))">
@@ -27,7 +27,7 @@
     <IsBindingProject>true</IsBindingProject>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net5.0'">
     <Content Include="..\Dependencies\FreeType2\windows\x86\freetype.dll">
       <Link>runtimes\win-x86\native\freetype.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

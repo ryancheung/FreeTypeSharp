@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////
 
 var target = Argument("build-target", "Default");
-var version = Argument("build-version", EnvironmentVariable("BUILD_NUMBER") ?? "2.0.0.1");
+var version = Argument("build-version", EnvironmentVariable("BUILD_NUMBER") ?? "2.0.0");
 var configuration = Argument("build-configuration", "Release");
 var apiKey = Argument("api-key", "");
 
