@@ -66,9 +66,7 @@ namespace FreeTypeSharp.Native
 
                 foreach (var path in searchPaths)
                 {
-                    success = NativeLibrary.TryLoad(path, typeof(FT).Assembly,
-                        DllImportSearchPath.ApplicationDirectory | DllImportSearchPath.UserDirectories | DllImportSearchPath.UseDllDirectoryForDependencies,
-                        out handle);
+                    success = NativeLibrary.TryLoad(path, out handle);
 
                     if (success)
                         return handle;
@@ -93,9 +91,7 @@ namespace FreeTypeSharp.Native
 
                 foreach (var path in searchPaths)
                 {
-                    success = NativeLibrary.TryLoad(path, typeof(FT).Assembly,
-                        DllImportSearchPath.ApplicationDirectory | DllImportSearchPath.UserDirectories | DllImportSearchPath.UseDllDirectoryForDependencies,
-                        out handle);
+                    success = NativeLibrary.TryLoad(path, out handle);
 
                     if (success)
                         return handle;
@@ -109,6 +105,9 @@ namespace FreeTypeSharp.Native
                 success = NativeLibrary.TryLoad(ActualLibraryName, typeof(FT).Assembly,
                     DllImportSearchPath.ApplicationDirectory | DllImportSearchPath.UserDirectories | DllImportSearchPath.UseDllDirectoryForDependencies, 
                     out handle);
+
+                if (!success)
+                    success = NativeLibrary.TryLoad(ActualLibraryName, out handle);
 
                 if (success)
                     return handle;
