@@ -2,7 +2,7 @@
 [![Nuget](https://img.shields.io/nuget/v/FreeTypeSharp)](https://www.nuget.org/packages/FreeTypeSharp/)
 [![Nuget](https://img.shields.io/nuget/vpre/FreeTypeSharp)](https://www.nuget.org/packages/FreeTypeSharp/)
 
-A moden managed FreeType2 library based on the freetype2 code in the [ultraviolet](https://github.com/tlgkccampbell/ultraviolet/tree/develop/Source/Ultraviolet.FreeType2) project.
+A modern managed FreeType2 library based on the freetype2 code in the [ultraviolet](https://github.com/tlgkccampbell/ultraviolet/tree/develop/Source/Ultraviolet.FreeType2) project.
 
 FreeTypeSharp v2+ provides cross-platform bindings for:
 

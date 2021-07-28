@@ -14,7 +14,7 @@
     <AssemblyName>FreeTypeSharp</AssemblyName>
     <BaseOutputPath>..\Artifacts</BaseOutputPath>
 
-    <Description>A moden cross-platform managed FreeType2 library.</Description>
+    <Description>A modern cross-platform managed FreeType2 library.</Description>
     <PackageTags>freetype2;.net6.0;</PackageTags>
     <PackageId>FreeTypeSharp</PackageId>
   </PropertyGroup>

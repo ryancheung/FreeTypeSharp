@@ -9,7 +9,7 @@
     <license type="file">LICENSE.txt</license>
     <projectUrl>https://github.com/ryancheung/FreeTypeSharp</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A moden cross-platform managed FreeType2 library.</description>
+    <description>A modern cross-platform managed FreeType2 library.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2021 ryancheung</copyright>
     <tags>freetype2 net6 net6-android net6-ios net6-windows10</tags>
