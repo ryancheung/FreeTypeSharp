@@ -7,12 +7,4 @@
   <ItemGroup>
     <PackageReference Include="FreeTypeSharp" Version="2.0.0-preview3" />
   </ItemGroup>
-
-  <!-- Workaround for https://github.com/NuGet/Home/issues/10889 -->
-  <Target Name="_CollectPackageReferencesFixes" BeforeTargets="CollectPackageReferences">
-    <PropertyGroup Condition="'$(PackageTargetFallback)' != '' and '$(AssetTargetFallback)' == ''">
-      <AssetTargetFallback>$(PackageTargetFallback)</AssetTargetFallback>
-      <PackageTargetFallback></PackageTargetFallback>
-    </PropertyGroup>
-  </Target>
 </Project>
