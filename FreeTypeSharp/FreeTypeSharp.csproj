@@ -8,6 +8,10 @@
     <TargetFrameworks>net6.0;net6.0-android;net6.0-ios</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RootNamespace>FreeTypeSharp</RootNamespace>

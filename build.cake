@@ -135,7 +135,7 @@ Task("BuildAll")
     if (!IsRunningOnWindows())
         return false;
 
-    return GetMSBuildWith("Microsoft.VisualStudio.Component.Windows10SDK.17763");
+    return GetMSBuildWith("Microsoft.VisualStudio.Component.Windows10SDK.19041");
 }).Does(() =>
 {
     BuildMSBuild("FreeTypeSharp/FreeTypeSharp.csproj");
