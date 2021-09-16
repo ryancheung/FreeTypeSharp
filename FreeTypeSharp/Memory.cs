@@ -123,7 +123,7 @@ namespace FreeTypeSharp
         /// function.
         /// </summary>
         /// <remarks>
-        /// This function may return <see cref="Error.UnimplementedFeature"/> if your build of FreeType was not
+        /// This function may return Error.UnimplementedFeature if your build of FreeType was not
         /// compiled with zlib support.
         /// </remarks>
         /// <param name="input">The input buffer.</param>

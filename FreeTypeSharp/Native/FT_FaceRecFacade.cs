@@ -49,7 +49,7 @@ namespace FreeTypeSharp.Native
         /// <summary>
         /// Gets the glyph index of the specified character, if it is defined by this face.
         /// </summary>
-        /// <param name="charcode">The character code for which to retrieve a glyph index.</param>
+        /// <param name="charCode">The character code for which to retrieve a glyph index.</param>
         /// <returns>The glyph index of the specified character, or 0 if the character is not defined by this face.</returns>
         public uint GetCharIndex(uint charCode) { return FT.FT_Get_Char_Index(_Face, charCode); }
 
