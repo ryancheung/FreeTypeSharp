@@ -82,7 +82,6 @@
     </NativeReference>
 
     <ObjcBindingApiDefinition Include="iOS\ApiDefinition.cs" />
-    <ObjcBindingCoreSource Include="*.cs" />
-    <ObjcBindingCoreSource Include="Native\*.cs" />
+    <ObjcBindingCoreSource Include="**\*.cs" Exclude="obj\**\*.cs" />
   </ItemGroup>
 </Project>
