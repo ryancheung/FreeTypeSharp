@@ -17,26 +17,10 @@ namespace FreeTypeSharp.Native
         public const string FreeTypeLibaryName = "freetype";
 #endif
 
-        public static readonly string ActualLibraryName;
-
+#if NET && !__IOS__
         static FT()
         {
-            if (OperatingSystem.IsWindows())
-                ActualLibraryName = "freetype.dll";
-            else if (OperatingSystem.IsMacOS())
-                ActualLibraryName = "libfreetype.dylib";
-            else if (OperatingSystem.IsLinux())
-                ActualLibraryName = "libfreetype.so";
-            else if (OperatingSystem.IsAndroid())
-                ActualLibraryName = "libfreetype.so";
-            else if (OperatingSystem.IsIOS())
-                ActualLibraryName = "libfreetype.dylib";
-            else
-                throw new PlatformNotSupportedException();
-
-#if !__IOS__
             NativeLibrary.SetDllImportResolver(typeof(FT).Assembly, ImportResolver);
-#endif
         }
 
         private static IntPtr ImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
@@ -50,6 +34,21 @@ namespace FreeTypeSharp.Native
 
             if (success)
                 return handle;
+
+
+            string ActualLibraryName;
+            if (OperatingSystem.IsWindows())
+                ActualLibraryName = "freetype.dll";
+            else if (OperatingSystem.IsMacOS())
+                ActualLibraryName = "libfreetype.dylib";
+            else if (OperatingSystem.IsLinux())
+                ActualLibraryName = "libfreetype.so";
+            else if (OperatingSystem.IsAndroid())
+                ActualLibraryName = "libfreetype.so";
+            else if (OperatingSystem.IsIOS())
+                ActualLibraryName = "libfreetype.dylib";
+            else
+                throw new PlatformNotSupportedException();
 
             string rootDirectory = AppContext.BaseDirectory;
 
@@ -117,6 +116,7 @@ namespace FreeTypeSharp.Native
 
             return handle;
         }
+#endif
 
         #region Core API
 

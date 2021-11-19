@@ -1,17 +1,10 @@
-#tool nuget:?package=vswhere&version=2.8.4
+#addin nuget:?package=Cake.FileHelpers&version=4.0.1
 
-//////////////////////////////////////////////////////////////////////
-// ARGUMENTS
-//////////////////////////////////////////////////////////////////////
+var baseVersion = "2.0.0.";
 
 var target = Argument("build-target", "Default");
-var version = Argument("build-version", EnvironmentVariable("BUILD_NUMBER") ?? "2.0.0");
+var version = Argument("build-version", EnvironmentVariable("BUILD_NUMBER") ?? baseVersion + "1");
 var configuration = Argument("build-configuration", "Release");
-var apiKey = Argument("api-key", "");
-
-//////////////////////////////////////////////////////////////////////
-// PREPARATION
-//////////////////////////////////////////////////////////////////////
 
 MSBuildSettings msBuildSettings;
 DotNetCoreMSBuildSettings dnMSBuildSettings;
@@ -27,27 +20,36 @@ private void BuildDotnet(string filePath)
     DotNetCoreBuild(filePath, dnBuildSettings);
 }
 
-private bool GetMSBuildWith(string requires)
+private void ParseVersion()
 {
-    if (IsRunningOnWindows())
+    if (!string.IsNullOrEmpty(EnvironmentVariable("GITHUB_ACTIONS")))
     {
-        DirectoryPath vsLatest = VSWhereLatest(new VSWhereLatestSettings { Requires = requires, IncludePrerelease = true });
+        var gitRef = EnvironmentVariable("GITHUB_REF");
 
-        if (vsLatest != null)
+        if (gitRef.Contains("refs/tags/")) // There's a git release
         {
-            var files = GetFiles(vsLatest.FullPath + "/**/MSBuild.exe");
-            if (files.Any())
-            {
-                msBuildSettings.ToolPath = files.First();
-                return true;
-            }
+            version = gitRef.Replace("refs/tags/v", "").Trim();
+        }
+        else
+        {
+            version = baseVersion + EnvironmentVariable("GITHUB_RUN_NUMBER");
+
+            var branch = EnvironmentVariable("GITHUB_REF");
+
+            if (branch != " refs/heads/release")
+                version = version + "-develop";
         }
     }
+    else
+    {
+        var branch = EnvironmentVariable("BRANCH_NAME") ?? string.Empty;
+        if (!branch.Contains("release"))
+            version += "-develop";
+    }
 
-    return false;
+    Console.WriteLine("Version: " + version);
 }
 
-var NuGetToolPath = Context.Tools.Resolve ("nuget.exe");
 var NuGetSpecFile = "nuget/FreeTypeSharp.nuspec";
 
 var PackageNuGet = new Action<FilePath, DirectoryPath> ((nuspecPath, outputPath) =>
@@ -57,27 +59,14 @@ var PackageNuGet = new Action<FilePath, DirectoryPath> ((nuspecPath, outputPath)
     NuGetPack (nuspecPath, new NuGetPackSettings {
         OutputDirectory = outputPath,
         BasePath = nuspecPath.GetDirectory (),
-        ToolPath = NuGetToolPath,
         Version = version
     });
 });
 
-var RunProcess = new Action<FilePath, string> ((process, args) =>
-{
-    var result = StartProcess (process, args);
-    if (result != 0) {
-        throw new Exception ($"Process '{process}' failed with error: {result}");
-    }
-});
-
-//////////////////////////////////////////////////////////////////////
-// TASKS
-//////////////////////////////////////////////////////////////////////
-
 Task("Prep")
     .Does(() =>
 {
-    Console.WriteLine("Build Version: {0}", version);
+    ParseVersion();
 
     msBuildSettings = new MSBuildSettings();
     msBuildSettings.Verbosity = Verbosity.Minimal;
@@ -94,71 +83,25 @@ Task("Prep")
     dnBuildSettings.MSBuildSettings = dnMSBuildSettings;
 });
 
-Task("BuildNET6.0")
+Task("Build")
     .IsDependentOn("Prep")
     .Does(() =>
 {
-    dnBuildSettings.Framework = "net6.0";
     BuildDotnet("FreeTypeSharp/FreeTypeSharp.csproj");
 });
-
-Task("BuildAndroid")
-    .IsDependentOn("Prep")
-    .Does(() =>
-{
-    dnBuildSettings.Framework = "net6.0-android";
-    BuildDotnet("FreeTypeSharp/FreeTypeSharp.csproj");
-});
-
-Task("BuildiOS")
-    .IsDependentOn("Prep")
-    .WithCriteria(() => Context.Environment.Platform.IsOSX(), "Not on macOS.")
-    .Does(() =>
-{
-    dnBuildSettings.Framework = "net6.0-ios";
-    BuildDotnet("FreeTypeSharp/FreeTypeSharp.csproj");
-});
-
-Task("BuildUWP")
-    .IsDependentOn("Prep")
-    .WithCriteria(() => Context.Environment.Platform.IsWindows(), "Not on Windows.")
-    .Does(() =>
-{
-    dnBuildSettings.Framework = "net5.0-windows10.0.19041.0";
-    BuildDotnet("FreeTypeSharp/FreeTypeSharp.csproj");
-});
-
-Task("BuildAll")
-    .IsDependentOn("Prep")
-    .WithCriteria(() =>
-{
-    if (!IsRunningOnWindows())
-        return false;
-
-    return GetMSBuildWith("Microsoft.VisualStudio.Component.Windows10SDK.19041");
-}).Does(() =>
-{
-    BuildMSBuild("FreeTypeSharp/FreeTypeSharp.csproj");
-});
-
-Task("Default")
-    .IsDependentOn("BuildAll");
 
 Task("Pack")
-    .IsDependentOn("BuildAll")
-.Does(() =>
+    .IsDependentOn("Build")
+    .WithCriteria(() =>
+{
+    return IsRunningOnMacOs();
+}).Does(() =>
 {
     PackageNuGet(NuGetSpecFile, "Artifacts");
 });
 
-Task("Publish")
-    .IsDependentOn("Pack")
-.Does(() =>
-{
-    var args = $"push -Source \"https://api.nuget.org/v3/index.json\" -ApiKey {apiKey} Artifacts/FreeTypeSharp.{version}.nupkg";
-
-    RunProcess(NuGetToolPath, args);
-});
+Task("Default")
+    .IsDependentOn("Build");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
