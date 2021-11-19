@@ -27,14 +27,8 @@ namespace FreeTypeSharp.Native
         {
             if (libraryName != FreeTypeLibaryName) return default;
 
-            IntPtr handle;
-            var success = NativeLibrary.TryLoad(libraryName, typeof(FT).Assembly,
-                DllImportSearchPath.ApplicationDirectory | DllImportSearchPath.UserDirectories | DllImportSearchPath.UseDllDirectoryForDependencies,
-                out handle);
-
-            if (success)
-                return handle;
-
+            IntPtr handle = default;
+            bool success = false;
 
             string ActualLibraryName;
             if (OperatingSystem.IsWindows())
@@ -71,6 +65,14 @@ namespace FreeTypeSharp.Native
                         return handle;
                 }
 
+                // Fallback to system installed freetype
+                success = NativeLibrary.TryLoad(libraryName, typeof(FT).Assembly,
+                    DllImportSearchPath.ApplicationDirectory | DllImportSearchPath.UserDirectories | DllImportSearchPath.UseDllDirectoryForDependencies,
+                    out handle);
+
+                if (success)
+                    return handle;
+
                 throw new FileLoadException("Failed to load native freetype library!");
             }
 
@@ -96,6 +98,14 @@ namespace FreeTypeSharp.Native
                         return handle;
                 }
 
+                // Fallback to system installed freetype
+                success = NativeLibrary.TryLoad(libraryName, typeof(FT).Assembly,
+                    DllImportSearchPath.ApplicationDirectory | DllImportSearchPath.UserDirectories | DllImportSearchPath.UseDllDirectoryForDependencies,
+                    out handle);
+
+                if (success)
+                    return handle;
+
                 throw new FileLoadException("Failed to load native freetype library!");
             }
 
@@ -107,6 +117,14 @@ namespace FreeTypeSharp.Native
 
                 if (!success)
                     success = NativeLibrary.TryLoad(ActualLibraryName, out handle);
+
+                if (success)
+                    return handle;
+
+                // Fallback to system installed freetype
+                success = NativeLibrary.TryLoad(libraryName, typeof(FT).Assembly,
+                    DllImportSearchPath.ApplicationDirectory | DllImportSearchPath.UserDirectories | DllImportSearchPath.UseDllDirectoryForDependencies,
+                    out handle);
 
                 if (success)
                     return handle;
