@@ -17,7 +17,7 @@ namespace FreeTypeSharp.Native
         public const string FreeTypeLibaryName = "freetype";
 #endif
 
-#if NET && !__IOS__
+#if NETCOREAPP3_1_OR_GREATER && !__IOS__
         static FT()
         {
             NativeLibrary.SetDllImportResolver(typeof(FT).Assembly, ImportResolver);

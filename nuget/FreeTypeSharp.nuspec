@@ -17,6 +17,8 @@
     <dependencies>
       <group targetFramework="netstandard2.0">
       </group>
+      <group targetFramework="netcoreapp3.1">
+      </group>
       <group targetFramework="net5.0">
       </group>
       <group targetFramework="net6.0">
@@ -31,6 +33,9 @@
   <files>
     <file src="..\Artifacts\Release\netstandard2.0\FreeTypeSharp.dll" target="lib/netstandard2.0" />
     <file src="..\Artifacts\Release\netstandard2.0\FreeTypeSharp.pdb" target="lib/netstandard2.0" />
+
+    <file src="..\Artifacts\Release\netcoreapp3.1\FreeTypeSharp.dll" target="lib/netcoreapp3.1" />
+    <file src="..\Artifacts\Release\netcoreapp3.1\FreeTypeSharp.pdb" target="lib/netcoreapp3.1" />
 
     <file src="..\Artifacts\Release\net5.0\FreeTypeSharp.dll" target="lib/net5.0" />
     <file src="..\Artifacts\Release\net5.0\FreeTypeSharp.pdb" target="lib/net5.0" />
