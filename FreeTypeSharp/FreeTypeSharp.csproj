@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows'))">
-    <TargetFrameworks>net5.0;net6.0;net6.0-android;net5.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net5.0;net6.0;net6.0-android;</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('osx'))">
-    <TargetFrameworks>net6.0;net6.0-android;net6.0-ios</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net5.0;net6.0;net6.0-android;net6.0-ios</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
@@ -19,12 +19,8 @@
     <BaseOutputPath>..\Artifacts</BaseOutputPath>
 
     <Description>A modern cross-platform managed FreeType2 library.</Description>
-    <PackageTags>freetype2;.net6.0;</PackageTags>
+    <PackageTags>freetype2;netstandard2.0;.net6.0;</PackageTags>
     <PackageId>FreeTypeSharp</PackageId>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0-windows10.0.19041.0'">
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
@@ -54,18 +50,6 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows10.0.19041.0'">
-    <Content Include="..\Dependencies\FreeType2\uwp\x86\freetype.dll">
-      <Link>runtimes\win10-x86\native\freetype.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-
-    <Content Include="..\Dependencies\FreeType2\uwp\x64\freetype.dll">
-      <Link>runtimes\win10-x64\native\freetype.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
     <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\arm64-v8a\libfreetype.so" Link="libs\arm64-v8a\libfreetype.so" />
     <EmbeddedNativeLibrary Include="..\Dependencies\FreeType2\android\armeabi-v7a\libfreetype.so" Link="libs\armeabi-v7a\libfreetype.so" />
@@ -81,7 +65,7 @@
       <LinkerFlags>-lbz2</LinkerFlags>
     </NativeReference>
 
-    <ObjcBindingApiDefinition Include="iOS\ApiDefinition.cs" />
+    <ObjcBindingApiDefinition Include="DummyApiDefinition.cs" />
     <ObjcBindingCoreSource Include="**\*.cs" Exclude="obj\**\*.cs" />
   </ItemGroup>
 </Project>
