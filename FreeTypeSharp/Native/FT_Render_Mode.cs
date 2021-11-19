@@ -7,6 +7,7 @@
         FT_RENDER_MODE_MONO,
         FT_RENDER_MODE_LCD,
         FT_RENDER_MODE_LCD_V,
+        FT_RENDER_MODE_SDF,
 
         FT_RENDER_MODE_MAX
     }
