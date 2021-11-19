@@ -37,14 +37,14 @@ private void ParseVersion()
             var branch = EnvironmentVariable("GITHUB_REF");
 
             if (branch != " refs/heads/release")
-                version = version + "-develop";
+                version = version + "-ci";
         }
     }
     else
     {
         var branch = EnvironmentVariable("BRANCH_NAME") ?? string.Empty;
         if (!branch.Contains("release"))
-            version += "-develop";
+            version += "-ci";
     }
 
     Console.WriteLine("Version: " + version);
