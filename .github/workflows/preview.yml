@@ -1,0 +1,41 @@
+name: Build & Pack
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ios_build:
+    name: iOS Build
+    runs-on: macos-latest
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Update submodules
+        run: git submodule update --init --recursive
+
+      - name: Restore cake tool
+        run: dotnet tool restore
+
+      - name: Install dotnet workloads
+        run: |
+          dotnet workload install android ios --skip-manifest-update
+
+      - name: Pack
+        run: |
+          dotnet cake --build-target=Pack
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: FreeTypeSharp Artifacts
+          path: Artifacts/*.nupkg
+
