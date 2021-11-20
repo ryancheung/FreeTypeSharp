@@ -6,7 +6,7 @@ A modern managed FreeType2 library based on the freetype2 code in the [ultraviol
 
 FreeTypeSharp v2+ provides cross-platform bindings for:
 
-- net6.0 (Windows, Linux, macOS)
+- netcoreapp3.1;net5.0;net6.0 (Windows, Linux, macOS)
 - net6.0-android
 - net6.0-ios
 - netstandard2.0 (UWP)

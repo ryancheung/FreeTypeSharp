@@ -17,7 +17,7 @@ namespace FreeTypeSharp.Native
         public const string FreeTypeLibaryName = "freetype";
 #endif
 
-#if NET && !__IOS__
+#if NETCOREAPP3_1_OR_GREATER && !__IOS__
         static FT()
         {
             NativeLibrary.SetDllImportResolver(typeof(FT).Assembly, ImportResolver);
@@ -30,23 +30,40 @@ namespace FreeTypeSharp.Native
             IntPtr handle = default;
             bool success = false;
 
-            string ActualLibraryName;
+            bool isWindows = false, isMacOS = false, isLinux = false, isAndroid = false;
+#if NETCOREAPP3_1
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                isWindows = true;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                isMacOS = true;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                isLinux = true;
+#else
             if (OperatingSystem.IsWindows())
-                ActualLibraryName = "freetype.dll";
+                isWindows = true;
             else if (OperatingSystem.IsMacOS())
-                ActualLibraryName = "libfreetype.dylib";
+                isMacOS = true;
             else if (OperatingSystem.IsLinux())
-                ActualLibraryName = "libfreetype.so";
+                isLinux = true;
             else if (OperatingSystem.IsAndroid())
-                ActualLibraryName = "libfreetype.so";
-            else if (OperatingSystem.IsIOS())
+                isAndroid = true;
+#endif
+
+            string ActualLibraryName;
+            if (isWindows)
+                ActualLibraryName = "freetype.dll";
+            else if (isMacOS)
                 ActualLibraryName = "libfreetype.dylib";
+            else if (isLinux)
+                ActualLibraryName = "libfreetype.so";
+            else if (isAndroid)
+                ActualLibraryName = "libfreetype.so";
             else
                 throw new PlatformNotSupportedException();
 
             string rootDirectory = AppContext.BaseDirectory;
 
-            if (OperatingSystem.IsWindows())
+            if (isWindows)
             {
                 string arch = Environment.Is64BitProcess ? "win-x64" : "win-x86";
                 var searchPaths = new[]
@@ -76,9 +93,9 @@ namespace FreeTypeSharp.Native
                 throw new FileLoadException("Failed to load native freetype library!");
             }
 
-            if (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
+            if (isLinux || isMacOS)
             {
-                string arch = OperatingSystem.IsMacOS() ? "osx" : "linux-" + (Environment.Is64BitProcess ? "x64" : "x86");
+                string arch = isMacOS ? "osx" : "linux-" + (Environment.Is64BitProcess ? "x64" : "x86");
 
                 var searchPaths = new[]
                 {
@@ -109,7 +126,7 @@ namespace FreeTypeSharp.Native
                 throw new FileLoadException("Failed to load native freetype library!");
             }
 
-            if (OperatingSystem.IsAndroid())
+            if (isAndroid)
             {
                 success = NativeLibrary.TryLoad(ActualLibraryName, typeof(FT).Assembly,
                     DllImportSearchPath.ApplicationDirectory | DllImportSearchPath.UserDirectories | DllImportSearchPath.UseDllDirectoryForDependencies, 
