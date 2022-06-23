@@ -9,6 +9,7 @@ FreeTypeSharp v2+ provides cross-platform bindings for:
 - netcoreapp3.1;net5.0;net6.0 (Windows, Linux, macOS)
 - net6.0-android
 - net6.0-ios
+- net6.0-tvos
 - netstandard2.0 (UWP)
 
 [README](https://github.com/ryancheung/FreeTypeSharp/tree/v1) for release v1.X
