@@ -27,6 +27,8 @@
       </group>
       <group targetFramework="net6.0-ios13.6">
       </group>
+      <group targetFramework="net6.0-tvos13.4">
+      </group>
     </dependencies>
   </metadata>
   
@@ -49,6 +51,13 @@
 
     <file src="..\Artifacts\Release\net6.0-ios\FreeTypeSharp.dll" target="lib/net6.0-ios13.6" />
     <file src="..\Artifacts\Release\net6.0-ios\FreeTypeSharp.pdb" target="lib/net6.0-ios13.6" />
+    <file src="manifest" target="lib/net6.0-ios13.6/FreeTypeSharp.resources/manifest" />
+
+    <file src="..\Artifacts\Release\net6.0-tvos\FreeTypeSharp.dll" target="lib/net6.0-tvos13.4" />
+    <file src="..\Artifacts\Release\net6.0-tvos\FreeTypeSharp.pdb" target="lib/net6.0-tvos13.4" />
+    <file src="manifest" target="lib/net6.0-tvos13.4/FreeTypeSharp.resources/manifest" />
+
+    <file src="..\Artifacts\Release\net6.0-ios\FreeTypeSharp.resources\**\*.*" target="content/res" />
 
     <file src="..\Dependencies\FreeType2\windows\x64\freetype.dll" target="runtimes\win-x64\native\freetype.dll" />
     <file src="..\Dependencies\FreeType2\windows\x86\freetype.dll" target="runtimes\win-x86\native\freetype.dll" />

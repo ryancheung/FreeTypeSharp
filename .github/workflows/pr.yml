@@ -38,7 +38,7 @@ jobs:
 
       - name: Install dotnet workloads
         run: |
-          dotnet workload install android ios --skip-manifest-update
+          dotnet workload install android ios tvos --skip-manifest-update
 
       - name: Build
         run: |
