@@ -25,9 +25,9 @@
       </group>
       <group targetFramework="net6.0-android31.0">
       </group>
-      <group targetFramework="net6.0-ios13.6">
+      <group targetFramework="net6.0-ios15.4">
       </group>
-      <group targetFramework="net6.0-tvos13.4">
+      <group targetFramework="net6.0-tvos15.4">
       </group>
     </dependencies>
   </metadata>
@@ -49,13 +49,13 @@
     <file src="..\Artifacts\Release\net6.0-android\FreeTypeSharp.aar" target="lib/net6.0-android31.0" />
     <file src="..\Artifacts\Release\net6.0-android\FreeTypeSharp.pdb" target="lib/net6.0-android31.0" />
 
-    <file src="..\Artifacts\Release\net6.0-ios\FreeTypeSharp.dll" target="lib/net6.0-ios13.6" />
-    <file src="..\Artifacts\Release\net6.0-ios\FreeTypeSharp.pdb" target="lib/net6.0-ios13.6" />
-    <file src="manifest" target="lib/net6.0-ios13.6/FreeTypeSharp.resources/manifest" />
+    <file src="..\Artifacts\Release\net6.0-ios\FreeTypeSharp.dll" target="lib/net6.0-ios15.4" />
+    <file src="..\Artifacts\Release\net6.0-ios\FreeTypeSharp.pdb" target="lib/net6.0-ios15.4" />
+    <file src="manifest" target="lib/net6.0-ios15.4/FreeTypeSharp.resources/manifest" />
 
-    <file src="..\Artifacts\Release\net6.0-tvos\FreeTypeSharp.dll" target="lib/net6.0-tvos13.4" />
-    <file src="..\Artifacts\Release\net6.0-tvos\FreeTypeSharp.pdb" target="lib/net6.0-tvos13.4" />
-    <file src="manifest" target="lib/net6.0-tvos13.4/FreeTypeSharp.resources/manifest" />
+    <file src="..\Artifacts\Release\net6.0-tvos\FreeTypeSharp.dll" target="lib/net6.0-tvos15.4" />
+    <file src="..\Artifacts\Release\net6.0-tvos\FreeTypeSharp.pdb" target="lib/net6.0-tvos15.4" />
+    <file src="manifest" target="lib/net6.0-tvos15.4/FreeTypeSharp.resources/manifest" />
 
     <file src="..\Artifacts\Release\net6.0-ios\FreeTypeSharp.resources\**\*.*" target="content/res" />
 
