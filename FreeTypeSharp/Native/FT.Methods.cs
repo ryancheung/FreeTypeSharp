@@ -216,7 +216,7 @@ namespace FreeTypeSharp.Native
         
 
         [DllImport(FreeTypeLibaryName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern FT_Error FT_Request_Size(IntPtr face, IntPtr req);
+        public static extern FT_Error FT_Request_Size(IntPtr face, ref FT_Size_RequestRec req);
         
 
         [DllImport(FreeTypeLibaryName, CallingConvention = CallingConvention.Cdecl)]
