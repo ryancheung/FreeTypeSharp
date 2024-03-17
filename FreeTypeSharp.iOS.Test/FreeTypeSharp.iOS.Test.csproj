@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-ios</TargetFramework>
+    <TargetFramework>net8.0-ios</TargetFramework>
     <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
     <RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
     <MtouchLink>SdkOnly</MtouchLink>
+    <_ExportSymbolsExplicitly>false</_ExportSymbolsExplicitly>
+    <MtouchExtraArgs>-gcc_flags "-dlsym:false"</MtouchExtraArgs>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-android</TargetFramework>
-	<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+    <TargetFramework>net8.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FreeTypeSharp" Version="2.0.0.3-ci" />
+    <ProjectReference Include="..\FreeTypeSharp\FreeTypeSharp.csproj" />
   </ItemGroup>
 </Project>
