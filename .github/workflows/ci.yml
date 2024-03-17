@@ -14,10 +14,10 @@ jobs:
         run: dotnet workload install android ios tvos
 
       - name: Build
-        run: dotnet pack
+        run: dotnet pack FreeTypeSharp/FreeTypeSharp.csproj
 
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.repository.name }} Artifacts
           path: |
-            bin/Release/*.nupkg
+            FreeTypeSharp/bin/Release/*.nupkg
