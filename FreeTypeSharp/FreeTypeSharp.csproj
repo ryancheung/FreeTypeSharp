@@ -46,11 +46,40 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\runtimes\FreeType2\win-x86\freetype.dll" Pack="true" PackagePath="runtimes\win-x86\native\"/>
-    <None Include="..\runtimes\FreeType2\win-x64\freetype.dll" Pack="true" PackagePath="runtimes\win-x64\native\"/>
-    <None Include="..\runtimes\FreeType2\win10-x64\freetype.dll" Pack="true" PackagePath="runtimes\win10-x64\native\"/>
-    <None Include="..\runtimes\FreeType2\linux-x64\libfreetype.so" Pack="true" PackagePath="runtimes\linux-x64\native\"/>
-    <None Include="..\runtimes\FreeType2\osx-x64\libfreetype.dylib" Pack="true" PackagePath="runtimes\osx-x64\native\"/>
+    <None Include="..\runtimes\FreeType2\win-x86\freetype.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\win-x86\native\</PackagePath>
+      <Link>runtimes\win-x86\native\freetype.dll</Link>
+      <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="..\runtimes\FreeType2\win-x64\freetype.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\win-x64\native\</PackagePath>
+      <Link>runtimes\win-x64\native\freetype.dll</Link>
+      <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="..\runtimes\FreeType2\win10-x64\freetype.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\win10-x64\native\</PackagePath>
+      <Link>runtimes\win10-x64\native\freetype.dll</Link>
+      <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="..\runtimes\FreeType2\linux-x64\libfreetype.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\linux-x64\native\</PackagePath>
+      <Link>runtimes\linux-x64\native\libfreetype.so</Link>
+      <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="..\runtimes\FreeType2\osx-x64\libfreetype.dylib">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\osx-x64\native\</PackagePath>
+      <Link>runtimes\osx-x64\native\libfreetype.dylib</Link>
+      <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
