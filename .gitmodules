@@ -1,3 +1,0 @@
-[submodule "Dependencies"]
-	path = Dependencies
-	url = https://github.com/ryancheung/FreeTypeSharp.Dependencies.git
