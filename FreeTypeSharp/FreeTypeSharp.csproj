@@ -74,10 +74,10 @@
       <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
     </None>
 
-    <None Include="..\runtimes\FreeType2\osx-x64\libfreetype.dylib">
+    <None Include="..\runtimes\FreeType2\osx\libfreetype.dylib">
       <Pack>true</Pack>
-      <PackagePath>runtimes\osx-x64\native\</PackagePath>
-      <Link>runtimes\osx-x64\native\libfreetype.dylib</Link>
+      <PackagePath>runtimes\osx\native\</PackagePath>
+      <Link>runtimes\osx\native\libfreetype.dylib</Link>
       <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
