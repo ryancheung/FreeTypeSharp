@@ -60,10 +60,10 @@
       <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
     </None>
 
-    <None Include="..\runtimes\FreeType2\win10-x64\freetype.dll">
+    <None Include="..\runtimes\FreeType2\win-arm64\freetype.dll">
       <Pack>true</Pack>
-      <PackagePath>runtimes\win10-x64\native\</PackagePath>
-      <Link>runtimes\win10-x64\native\freetype.dll</Link>
+      <PackagePath>runtimes\win-arm64\native\</PackagePath>
+      <Link>runtimes\win-arm64\native\freetype.dll</Link>
       <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
     </None>
 
