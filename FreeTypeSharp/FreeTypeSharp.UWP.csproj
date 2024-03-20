@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows'))">
+    <TargetFramework>uap10.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>FreeTypeSharp</RootNamespace>
+    <AssemblyName>FreeTypeSharp</AssemblyName>
+    <VersionPrefix>2.1.0</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageProjectUrl>https://github.com/ryancheung/FreeTypeSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ryancheung/FreeTypeSharp</RepositoryUrl>
+    <Authors>ryancheung</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>A modern cross-platform managed FreeType2 library.</Description>
+    <PackageTags>freetype2;netstandard2.0;.net8.0;</PackageTags>
+    <PackageId>FreeTypeSharp.UWP</PackageId>
+    <Copyright>Copyright 2024 ryancheung</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'uap10.0'">
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <TargetFrameworkIdentifier>.NETCore</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <DefineConstants>$(DefineConstants);WINDOWS_UWP</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\runtimes\FreeType2\win10-x86\freetype.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\win10-x86\native\</PackagePath>
+      <Link>runtimes\win10-x86\native\freetype.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="..\runtimes\FreeType2\win10-x64\freetype.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\win10-x64\native\</PackagePath>
+      <Link>runtimes\win10-x64\native\freetype.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="..\runtimes\FreeType2\win10-arm64\freetype.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\win10-arm64\native\</PackagePath>
+      <Link>runtimes\win10-arm64\native\freetype.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
