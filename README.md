@@ -1,6 +1,5 @@
 # FreeTypeSharp
 [![Nuget](https://img.shields.io/nuget/v/FreeTypeSharp)](https://www.nuget.org/packages/FreeTypeSharp/)
-[![Nuget](https://img.shields.io/nuget/vpre/FreeTypeSharp)](https://www.nuget.org/packages/FreeTypeSharp/)
 
 A modern managed FreeType2 library based on the freetype2 code in the [ultraviolet](https://github.com/tlgkccampbell/ultraviolet/tree/develop/Source/Ultraviolet.FreeType2) project.
 
@@ -10,7 +9,8 @@ FreeTypeSharp v2+ provides cross-platform bindings for:
 - net8.0-android
 - net8.0-ios
 - net8.0-tvos
-- netstandard2.0 (UWP)
+- netstandard2.0
+- uap10.0 (UWP)
 
 [README](https://github.com/ryancheung/FreeTypeSharp/tree/v1) for release v1.X
 
@@ -23,6 +23,10 @@ Native binaries are built by the CI in https://github.com/ryancheung/freetype/tr
 # Installation
 
 `dotnet add package FreeTypeSharp`
+
+UWP target is in a seperate package
+
+`dotnet add package FreeTypeSharp.UWP`
 
 # Usage
 
