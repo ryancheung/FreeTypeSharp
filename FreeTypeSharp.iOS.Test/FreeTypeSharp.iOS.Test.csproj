@@ -5,6 +5,7 @@
     <RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
     <MtouchLink>SdkOnly</MtouchLink>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <_ExportSymbolsExplicitly>false</_ExportSymbolsExplicitly>
     <MtouchExtraArgs>-gcc_flags "-dlsym:false"</MtouchExtraArgs>
   </PropertyGroup>

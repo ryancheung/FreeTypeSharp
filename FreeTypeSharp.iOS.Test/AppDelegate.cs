@@ -1,6 +1,6 @@
 ﻿using Foundation;
 using UIKit;
-using static FreeTypeSharp.Native.FT;
+using static FreeTypeSharp.FT;
 
 namespace FreeTypeSharp.iOS.Test {
 	[Register ("AppDelegate")]
@@ -10,13 +10,14 @@ namespace FreeTypeSharp.iOS.Test {
 			set;
 		}
 
-		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
+		public unsafe override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			// create a new window instance based on the screen size
 			Window = new UIWindow (UIScreen.MainScreen.Bounds);
 
 			var library = new FreeTypeLibrary();
-			FT_Library_Version(library.Native, out var major, out var minor, out var patch);
+			int major, minor, patch;
+			FT_Library_Version(library.Native, &major, &minor, &patch);
 
 			// create a UIViewController with a single UILabel
 			var vc = new UIViewController ();

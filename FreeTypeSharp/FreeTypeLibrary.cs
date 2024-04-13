@@ -42,7 +42,7 @@ namespace FreeTypeSharp
         }
 
         /// <inheritdoc/>
-        void Dispose(Boolean disposing)
+        void Dispose(bool disposing)
         {
             if (Native != default)
             {
