@@ -1,5 +1,4 @@
 ﻿using System;
-using FreeTypeSharp.Native;
 
 namespace FreeTypeSharp
 {

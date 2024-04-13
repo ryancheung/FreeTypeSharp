@@ -1,25 +1,23 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
-using FreeTypeSharp.Native;
+using static FreeTypeSharp.FT_FACE_FLAG;
 
 namespace FreeTypeSharp
 {
     public unsafe class FreeTypeFaceFacade
     {
         // A pointer to the wrapped FreeType2 face object.
-        private readonly IntPtr _Face;
-        private readonly FT_FaceRec* _FaceRec;
+        private readonly FT_FaceRec_* _FaceRec;
         private readonly FreeTypeLibrary _Library;
 
         /// <summary>
         /// Initialize a FreeTypeFaceFacade instance with a pointer to the Face instance.
         /// </summary>
-        public FreeTypeFaceFacade(FreeTypeLibrary library, IntPtr face)
+        public FreeTypeFaceFacade(FreeTypeLibrary library, FT_FaceRec_* face)
         {
             _Library = library;
-            _Face = face;
-            _FaceRec = (FT_FaceRec*)_Face;
+            _FaceRec = face;
         }
 
         /// <summary>
@@ -29,41 +27,42 @@ namespace FreeTypeSharp
         {
             _Library = library;
 
-            var err = FT.FT_New_Memory_Face(_Library.Native, fontData, dataLength, faceIndex, out _Face);
+            FT_FaceRec_* face;
+
+            var err = FT.FT_New_Memory_Face(_Library.Native, (byte*)fontData, (IntPtr)dataLength, (IntPtr)faceIndex, &face);
             if (err != FT_Error.FT_Err_Ok)
                 throw new FreeTypeException(err);
 
-            _FaceRec = (FT_FaceRec*)_Face;
+            _FaceRec = face;
         }
 
         #region Properties
 
-        public IntPtr Face { get { return _Face; } }
-        public FT_FaceRec* FaceRec { get { return _FaceRec; } }
+        public FT_FaceRec_* FaceRec { get { return _FaceRec; } }
 
         /// <summary>
         /// Gets a value indicating whether the face has the FT_FACE_FLAG_SCALABLE flag set.
         /// </summary>
         /// <returns><see langword="true"/> if the face has the FT_FACE_FLAG_SCALABLE flag defined; otherwise, <see langword="false"/>.</returns>
-        public bool HasScalableFlag { get { return HasFaceFlag(FT.FT_FACE_FLAG_SCALABLE); } }
+        public bool HasScalableFlag { get { return HasFaceFlag(FT_FACE_FLAG_SCALABLE); } }
 
         /// <summary>
         /// Gets a value indicating whether the face has the FT_FACE_FLAG_FIXED_SIZES flag set.
         /// </summary>
         /// <returns><see langword="true"/> if the face has the FT_FACE_FLAG_FIXED_SIZES flag defined; otherwise, <see langword="false"/>.</returns>
-        public bool HasFixedSizes { get { return HasFaceFlag(FT.FT_FACE_FLAG_FIXED_SIZES); } }
+        public bool HasFixedSizes { get { return HasFaceFlag(FT_FACE_FLAG_FIXED_SIZES); } }
 
         /// <summary>
         /// Gets a value indicating whether the face has the FT_FACE_FLAG_COLOR flag set.
         /// </summary>
         /// <returns><see langword="true"/> if the face has the FT_FACE_FLAG_COLOR flag defined; otherwise, <see langword="false"/>.</returns>
-        public bool HasColorFlag { get { return HasFaceFlag(FT.FT_FACE_FLAG_COLOR); } }
+        public bool HasColorFlag { get { return HasFaceFlag(FT_FACE_FLAG_COLOR); } }
 
         /// <summary>
         /// Gets a value indicating whether the face has the FT_FACE_FLAG_KERNING flag set.
         /// </summary>
         /// <returns><see langword="true"/> if the face has the FT_FACE_FLAG_KERNING flag defined; otherwise, <see langword="false"/>.</returns>
-        public bool HasKerningFlag { get { return HasFaceFlag(FT.FT_FACE_FLAG_KERNING); } }
+        public bool HasKerningFlag { get { return HasFaceFlag(FT_FACE_FLAG_KERNING); } }
 
         /// <summary>
         /// Gets a value indicating whether the face has any bitmap strikes with fixed sizes.
@@ -73,8 +72,8 @@ namespace FreeTypeSharp
         /// <summary>
         /// Gets the current glyph bitmap.
         /// </summary>
-        public FT_Bitmap GlyphBitmap { get { return _FaceRec->glyph->bitmap; } }
-        public FT_Bitmap* GlyphBitmapPtr { get { return &_FaceRec->glyph->bitmap; } }
+        public FT_Bitmap_ GlyphBitmap { get { return _FaceRec->glyph->bitmap; } }
+        public FT_Bitmap_* GlyphBitmapPtr { get { return &_FaceRec->glyph->bitmap; } }
 
         /// <summary>
         /// Gets the left offset of the current glyph bitmap.
@@ -129,7 +128,7 @@ namespace FreeTypeSharp
         /// <summary>
         /// Gets a pointer to the face's glyph slot.
         /// </summary>
-        public FT_GlyphSlotRec* GlyphSlot { get { return _FaceRec->glyph; } }
+        public FT_GlyphSlotRec_* GlyphSlot { get { return _FaceRec->glyph; } }
 
         #endregion
 
@@ -140,7 +139,7 @@ namespace FreeTypeSharp
         /// </summary>
         /// <param name="flag">The flag to evaluate.</param>
         /// <returns><see langword="true"/> if the face has the specified flag defined; otherwise, <see langword="false"/>.</returns>
-        public bool HasFaceFlag(int flag) { return (((int)_FaceRec->face_flags) & flag) != 0; }
+        public bool HasFaceFlag(FT_FACE_FLAG flag) { return (((int)_FaceRec->face_flags) & (int)flag) != 0; }
 
         /// <summary>
         /// Selects the specified character size for the font face.
@@ -151,7 +150,7 @@ namespace FreeTypeSharp
         public void SelectCharSize(int sizeInPoints, uint dpiX, uint dpiY)
         {
             var size = (IntPtr)(sizeInPoints << 6);
-            var err = FT.FT_Set_Char_Size(_Face, size, size, dpiX, dpiY);
+            var err = FT.FT_Set_Char_Size(_FaceRec, size, size, dpiX, dpiY);
             if (err != FT_Error.FT_Err_Ok)
                 throw new FreeTypeException(err);
         }
@@ -162,7 +161,7 @@ namespace FreeTypeSharp
         /// <param name="ix">The index of the fixed size to select.</param>
         public void SelectFixedSize(int ix)
         {
-            var err = FT.FT_Select_Size(_Face, ix);
+            var err = FT.FT_Select_Size(_FaceRec, ix);
             if (err != FT_Error.FT_Err_Ok)
                 throw new FreeTypeException(err);
         }
@@ -172,29 +171,29 @@ namespace FreeTypeSharp
         /// </summary>
         /// <param name="charCode">The character code for which to retrieve a glyph index.</param>
         /// <returns>The glyph index of the specified character, or 0 if the character is not defined by this face.</returns>
-        public uint GetCharIndex(uint charCode) { return FT.FT_Get_Char_Index(_Face, charCode); }
+        public uint GetCharIndex(uint charCode) { return FT.FT_Get_Char_Index(_FaceRec, (UIntPtr)charCode); }
 
         /// <summary>
         /// Marshals the face's family name to a C# string.
         /// </summary>
         /// <returns>The marshalled string.</returns>
-        public string MarshalFamilyName() { return Marshal.PtrToStringAnsi(_FaceRec->family_name); }
+        public string MarshalFamilyName() { return Marshal.PtrToStringAnsi((IntPtr)_FaceRec->family_name); }
 
         /// <summary>
         /// Marshals the face's style name to a C# string.
         /// </summary>
         /// <returns>The marshalled string.</returns>
-        public string MarshalStyleName() { return Marshal.PtrToStringAnsi(_FaceRec->style_name); }
+        public string MarshalStyleName() { return Marshal.PtrToStringAnsi((IntPtr)_FaceRec->style_name); }
 
         /// <summary>
         /// Returns the specified character if it is defined by this face; otherwise, returns <see langword="null"/>.
         /// </summary>
         /// <param name="c">The character to evaluate.</param>
         /// <returns>The specified character, if it is defined by this face; otherwise, <see langword="null"/>.</returns>
-        public char? GetCharIfDefined(Char c) { return FT.FT_Get_Char_Index(_Face, c) > 0 ? c : (char?)null; }
+        public char? GetCharIfDefined(char c) { return FT.FT_Get_Char_Index(_FaceRec, (UIntPtr)c) > 0 ? c : (char?)null; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private int GetFixedSizeInPixels(FT_FaceRec* face, int ix)
+        private int GetFixedSizeInPixels(FT_FaceRec_* face, int ix)
         {
             return face->available_sizes[ix].height;
         }
@@ -233,7 +232,7 @@ namespace FreeTypeSharp
 
         public bool EmboldenGlyphBitmap(int xStrength, int yStrength)
         {
-            var err = FT.FT_Bitmap_Embolden(_Library.Native, (IntPtr)(GlyphBitmapPtr), (IntPtr)xStrength, (IntPtr)yStrength);
+            var err = FT.FT_Bitmap_Embolden(_Library.Native, GlyphBitmapPtr, (IntPtr)xStrength, (IntPtr)yStrength);
             if (err != FT_Error.FT_Err_Ok)
                 return false;
 

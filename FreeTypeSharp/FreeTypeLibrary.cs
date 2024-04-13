@@ -1,5 +1,4 @@
 ﻿using System;
-using FreeTypeSharp.Native;
 
 namespace FreeTypeSharp
 {
@@ -8,12 +7,12 @@ namespace FreeTypeSharp
     /// </summary>
     public sealed unsafe class FreeTypeLibrary : IDisposable
     {
-        private Boolean disposed;
+        private bool disposed;
 
         /// <summary>
         /// Gets a value indicating whether the object has been disposed.
         /// </summary>
-        public Boolean Disposed
+        public bool Disposed
         {
             get { return disposed; }
         }
@@ -23,8 +22,8 @@ namespace FreeTypeSharp
         /// </summary>
         public FreeTypeLibrary()
         {
-            IntPtr lib;
-            var err = FT.FT_Init_FreeType(out lib);
+            FT_LibraryRec_* lib;
+            var err = FT.FT_Init_FreeType(&lib);
             if (err != FT_Error.FT_Err_Ok)
                 throw new FreeTypeException(err);
 
@@ -34,7 +33,7 @@ namespace FreeTypeSharp
         /// <summary>
         /// Gets the native pointer to the FreeType2 library object.
         /// </summary>
-        public IntPtr Native { get; private set; }
+        public FT_LibraryRec_* Native { get; private set; }
 
         public void Dispose()
         {
@@ -45,13 +44,13 @@ namespace FreeTypeSharp
         /// <inheritdoc/>
         void Dispose(Boolean disposing)
         {
-            if (Native != IntPtr.Zero)
+            if (Native != default)
             {
                 var err = FT.FT_Done_FreeType(Native);
                 if (err != FT_Error.FT_Err_Ok)
                     throw new FreeTypeException(err);
 
-                Native = IntPtr.Zero;
+                Native = default;
             }
 
             disposed = true;

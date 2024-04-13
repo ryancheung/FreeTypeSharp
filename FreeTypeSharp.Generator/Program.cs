@@ -135,6 +135,8 @@ namespace FreeTypeSharp.Generator
                 {
                     foreach (var _func in translationUnit.Functions)
                     {
+                        if (_func.Name == "FTC_Manager_New") // Skip method has function pointer parameter
+                            continue;
                         var modifiers = new SyntaxTokenList();
                         modifiers = modifiers.Add(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
                         modifiers = modifiers.Add(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
@@ -281,6 +283,8 @@ namespace FreeTypeSharp.Generator
             AddPreprocessedEnumeration(context, "FT_STYLE_FLAG");
 
             typeOverrides.Add("load_flags", predefinedEnumerations["FT_LOAD"]);
+            typeOverrides.Add("face_flags", predefinedEnumerations["FT_FACE_FLAG"]);
+            typeOverrides.Add("style_flags", predefinedEnumerations["FT_STYLE_FLAG"]);
             typeOverrides.Add("pixel_mode", enumerations["FT_Pixel_Mode_"]);
         }
 
@@ -313,7 +317,7 @@ namespace FreeTypeSharp.Generator
                 predefinedEnumerations.Add(startsWith, new Enumeration()
                 {
                     Name = startsWith,
-                    Type = new BuiltinType() { Type = PrimitiveType.Long },
+                    Type = new BuiltinType() { Type = PrimitiveType.Int },
                     Items = definations.Select(t => new Enumeration.Item() { Name = t.Key, Expression = t.Value }).ToList()
                 });
             }
@@ -348,6 +352,20 @@ namespace FreeTypeSharp.Generator
                     _struct = _struct.AddAttributeLists(SyntaxFactory.AttributeList(new SeparatedSyntaxList<AttributeSyntax>().Add(attribute)));
                     foreach (var field in _class.Fields)
                     {
+                        switch (typeName)
+                        {
+                            // Skip structs having unsupported fields, like union and function pointers
+                            case "FT_COLR_Paint_":
+                            case "FT_Generic_":
+                            case "FT_MemoryRec_":
+                            case "FT_Outline_Funcs_":
+                            case "FT_Raster_Params_":
+                            case "FT_StreamRec_":
+                                continue;
+                            default:
+                                break;
+                        }
+
                         TypeSyntax typeSyntax;
                         if (typeOverrides.ContainsKey(field.Name))
                         {
@@ -355,6 +373,11 @@ namespace FreeTypeSharp.Generator
                             {
                                 Declaration = typeOverrides[field.Name]
                             });
+                            // These fields types should not be override
+                            if (field.Name == "face_flags" || field.Name == "style_flags")
+                            {
+                                typeSyntax = GetTypeSyntax(context, field.Type);
+                            }
                         }
                         else
                             typeSyntax = GetTypeSyntax(context, field.Type);
