@@ -1,0 +1,3 @@
+[submodule "freetype"]
+	path = freetype
+	url = git@github.com:ryancheung/freetype.git

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTypeSharp.iOS.Test", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTypeSharp.Android.Test", "FreeTypeSharp.Android.Test\FreeTypeSharp.Android.Test.csproj", "{916577B7-E0D2-45EC-B51C-A07AEA97C0F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTypeSharp.Generator", "FreeTypeSharp.Generator\FreeTypeSharp.Generator.csproj", "{B94334B4-904F-401C-840E-EB52A62A1F5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,18 @@ Global
 		{916577B7-E0D2-45EC-B51C-A07AEA97C0F9}.Release|x86.ActiveCfg = Release|Any CPU
 		{916577B7-E0D2-45EC-B51C-A07AEA97C0F9}.Release|x86.Build.0 = Release|Any CPU
 		{916577B7-E0D2-45EC-B51C-A07AEA97C0F9}.Release|x86.Deploy.0 = Release|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Debug|x64.Build.0 = Debug|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Debug|x86.Build.0 = Debug|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Release|x64.ActiveCfg = Release|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Release|x64.Build.0 = Release|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Release|x86.ActiveCfg = Release|Any CPU
+		{B94334B4-904F-401C-840E-EB52A62A1F5F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
