@@ -66,7 +66,7 @@ namespace FreeTypeSharp.Demo
                 }
             }
 
-            using(var fileStream = File.OpenWrite("some.jpg"))
+            using(var fileStream = File.OpenWrite("Test.jpg"))
             {
                 using (var wstream = new SKManagedWStream(fileStream))
                 {
