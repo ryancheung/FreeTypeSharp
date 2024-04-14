@@ -184,6 +184,8 @@ namespace FreeTypeSharp.Generator
                 fileWriter.Write(rootSyntax.NormalizeWhitespace().ToFullString());
             }
 
+            System.Console.WriteLine("All done, code are saved to {0}", OutputDir);
+
             return 0;
         }
 

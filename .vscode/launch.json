@@ -5,10 +5,10 @@
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes
             // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "Launch Generator (console)",
+            "name": "Launch Code Generator (console)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "buildGenerator",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/FreeTypeSharp.Generator/bin/Debug/net8.0/FreeTypeSharp.Generator.dll",
             "args": [

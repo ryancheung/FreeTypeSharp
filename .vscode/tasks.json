@@ -13,5 +13,17 @@
             ],
             "problemMatcher": "$msCompile"
         },
+        {
+            "label": "buildGenerator",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/FreeTypeSharp.Generator/FreeTypeSharp.Generator.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
     ]
 }
