@@ -227,15 +227,17 @@ namespace FreeTypeSharp.Generator
 
             if (functionType != null)
             {
-                var parameters = new SeparatedSyntaxList<FunctionPointerParameterSyntax>();
+                return SyntaxFactory.ParseTypeName("void"); // use void* for function pointers
 
-                foreach (var parameter in functionType.Parameters)
-                    parameters = parameters.Add(SyntaxFactory.FunctionPointerParameter(GetTypeSyntax(context, parameter.Type)));
+                //var parameters = new SeparatedSyntaxList<FunctionPointerParameterSyntax>();
 
-                return SyntaxFactory.FunctionPointerType(
-                    SyntaxFactory.FunctionPointerCallingConvention(SyntaxFactory.Token(SyntaxKind.UnmanagedKeyword)),
-                    SyntaxFactory.FunctionPointerParameterList(parameters)
-                    );
+                //foreach (var parameter in functionType.Parameters)
+                //    parameters = parameters.Add(SyntaxFactory.FunctionPointerParameter(GetTypeSyntax(context, parameter.Type)));
+
+                //return SyntaxFactory.FunctionPointerType(
+                //    SyntaxFactory.FunctionPointerCallingConvention(SyntaxFactory.Token(SyntaxKind.UnmanagedKeyword)),
+                //    SyntaxFactory.FunctionPointerParameterList(parameters)
+                //    );
             }
 
             throw new System.Exception("type not handled");
@@ -358,7 +360,6 @@ namespace FreeTypeSharp.Generator
                         {
                             // Skip structs having unsupported fields, like union and function pointers
                             case "FT_COLR_Paint_":
-                            case "FT_Generic_":
                             case "FT_MemoryRec_":
                             case "FT_Outline_Funcs_":
                             case "FT_Raster_Params_":
