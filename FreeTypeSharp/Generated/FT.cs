@@ -42,7 +42,7 @@ namespace FreeTypeSharp
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Render_Glyph(FT_GlyphSlotRec_* slot, FT_Render_Mode_ render_mode);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern FT_Error FT_Get_Kerning(FT_FaceRec_* face, uint left_glyph, uint right_glyph, uint kern_mode, FT_Vector_* akerning);
+        public static extern FT_Error FT_Get_Kerning(FT_FaceRec_* face, uint left_glyph, uint right_glyph, FT_Kerning_Mode_ kern_mode, FT_Vector_* akerning);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Get_Track_Kerning(FT_FaceRec_* face, IntPtr point_size, int degree, IntPtr* akerning);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

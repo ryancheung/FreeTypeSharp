@@ -285,11 +285,13 @@ namespace FreeTypeSharp.Generator
             AddPreprocessedEnumeration(context, "FT_LOAD", "FT_LOAD_TARGET");
             AddPreprocessedEnumeration(context, "FT_FACE_FLAG");
             AddPreprocessedEnumeration(context, "FT_STYLE_FLAG");
+            AddPreprocessedEnumeration(context, "FT_Kerning_Mode_");
 
             typeOverrides.Add("load_flags", predefinedEnumerations["FT_LOAD"]);
             typeOverrides.Add("face_flags", predefinedEnumerations["FT_FACE_FLAG"]);
             typeOverrides.Add("style_flags", predefinedEnumerations["FT_STYLE_FLAG"]);
             typeOverrides.Add("pixel_mode", enumerations["FT_Pixel_Mode_"]);
+            typeOverrides.Add("kern_mode", predefinedEnumerations["FT_Kerning_Mode_"]);
         }
 
         private static void AddPreprocessedEnumeration(ASTContext context, string startsWith, string notStartsWith = default)
