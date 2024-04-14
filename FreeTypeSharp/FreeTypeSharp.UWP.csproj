@@ -10,6 +10,7 @@
     <AssemblyName>FreeTypeSharp</AssemblyName>
     <VersionPrefix>3.0.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <PropertyGroup>
