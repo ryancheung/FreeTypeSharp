@@ -12,7 +12,7 @@
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/FreeTypeSharp.Generator/bin/Debug/net8.0/FreeTypeSharp.Generator.dll",
             "args": [
-                "-o${workspaceFolder}/FreeTypeSharp/Native",
+                "-o${workspaceFolder}/FreeTypeSharp/Generated",
                 "-f${workspaceFolder}/FreeTypeSharp.Generator/main.h",
                 "-i${workspaceFolder}/freetype/include",
                 "-nFreeTypeSharp"
