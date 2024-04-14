@@ -360,10 +360,6 @@ namespace FreeTypeSharp.Generator
                         {
                             // Skip structs having unsupported fields, like union and function pointers
                             case "FT_COLR_Paint_":
-                            case "FT_MemoryRec_":
-                            case "FT_Outline_Funcs_":
-                            case "FT_Raster_Params_":
-                            case "FT_StreamRec_":
                                 continue;
                             default:
                                 break;

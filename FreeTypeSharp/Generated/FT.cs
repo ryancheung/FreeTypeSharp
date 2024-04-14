@@ -136,6 +136,30 @@ namespace FreeTypeSharp
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Activate_Size(FT_SizeRec_* size);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Add_Module(FT_LibraryRec_* library, FT_Module_Class_* clazz);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_ModuleRec_* FT_Get_Module(FT_LibraryRec_* library, byte* module_name);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Remove_Module(FT_LibraryRec_* library, FT_ModuleRec_* module);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Property_Set(FT_LibraryRec_* library, byte* module_name, byte* property_name, void* value);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Property_Get(FT_LibraryRec_* library, byte* module_name, byte* property_name, void* value);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FT_Set_Default_Properties(FT_LibraryRec_* library);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Reference_Library(FT_LibraryRec_* library);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_New_Library(FT_MemoryRec_* memory, FT_LibraryRec_** alibrary);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Done_Library(FT_LibraryRec_* library);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FT_Set_Debug_Hook(FT_LibraryRec_* library, uint hook_index, void* debug_hook);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FT_Add_Default_Modules(FT_LibraryRec_* library);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_TrueTypeEngineType_ FT_Get_TrueType_Engine_Type(FT_LibraryRec_* library);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_New_Glyph(FT_LibraryRec_* library, FT_Glyph_Format_ format, FT_GlyphRec_** aglyph);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Get_Glyph(FT_GlyphSlotRec_* slot, FT_GlyphRec_** aglyph);
@@ -153,6 +177,10 @@ namespace FreeTypeSharp
         public static extern void FT_Matrix_Multiply(FT_Matrix_* a, FT_Matrix_* b);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Matrix_Invert(FT_Matrix_* matrix);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_RendererRec_* FT_Get_Renderer(FT_LibraryRec_* library, FT_Glyph_Format_ format);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern FT_Error FT_Set_Renderer(FT_LibraryRec_* library, FT_RendererRec_* renderer, uint num_params, FT_Parameter_* parameters);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Palette_Data_Get(FT_FaceRec_* face, FT_Palette_Data_* apalette);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -281,6 +309,8 @@ namespace FreeTypeSharp
         public static extern void FT_Vector_Polarize(FT_Vector_* vec, IntPtr* length, IntPtr* angle);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void FT_Vector_From_Polar(FT_Vector_* vec, IntPtr length, IntPtr angle);
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int FT_Get_Gasp(FT_FaceRec_* face, uint ppem);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern FT_Error FT_Get_Advance(FT_FaceRec_* face, uint gindex, FT_LOAD load_flags, IntPtr* padvance);
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
